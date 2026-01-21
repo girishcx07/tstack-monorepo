@@ -16,6 +16,7 @@
     "format:fix": "pnpm format --write",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "lint:fix": "pnpm lint --fix",
+    "test": "turbo run test",
     "postclean": "git clean -xdf .cache .turbo node_modules",
     "start": "turbo run start",
     "typecheck": "turbo run typecheck",
