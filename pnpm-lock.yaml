@@ -60,14 +60,26 @@ catalogs:
     '@tailwindcss/vite':
       specifier: ^4.1.18
       version: 4.1.18
+    '@tanstack/devtools-vite':
+      specifier: ^0.3.11
+      version: 0.3.12
+    '@tanstack/react-devtools':
+      specifier: ^0.7.0
+      version: 0.7.11
     '@tanstack/react-form':
       specifier: ^1.27.7
       version: 1.27.7
     '@tanstack/react-query':
       specifier: ^5.90.16
       version: 5.90.16
+    '@tanstack/react-query-devtools':
+      specifier: ^5.84.2
+      version: 5.91.2
     '@tanstack/react-router':
       specifier: ^1.149.3
+      version: 1.149.3
+    '@tanstack/react-router-devtools':
+      specifier: ^1.132.0
       version: 1.149.3
     '@tanstack/router-devtools':
       specifier: ^1.149.3
@@ -75,6 +87,12 @@ catalogs:
     '@tanstack/router-plugin':
       specifier: ^1.149.3
       version: 1.149.3
+    '@testing-library/dom':
+      specifier: ^10.4.0
+      version: 10.4.1
+    '@testing-library/react':
+      specifier: ^16.2.0
+      version: 16.3.2
     '@types/eslint-config-prettier':
       specifier: ^6.11.3
       version: 6.11.3
@@ -90,9 +108,15 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.2.3
       version: 19.2.3
+    '@vitejs/plugin-react':
+      specifier: ^5.0.4
+      version: 5.1.2
     '@vitejs/plugin-react-swc':
       specifier: ^4.2.2
       version: 4.2.2
+    babel-plugin-react-compiler:
+      specifier: ^1.0.0
+      version: 1.0.0
     better-auth:
       specifier: ^1.4.12
       version: 1.4.12
@@ -141,6 +165,12 @@ catalogs:
     hono:
       specifier: ^4.11.4
       version: 4.11.4
+    jsdom:
+      specifier: ^27.0.0
+      version: 27.4.0
+    lucide-react:
+      specifier: ^0.561.0
+      version: 0.561.0
     next-themes:
       specifier: ^0.4.6
       version: 0.4.6
@@ -198,6 +228,15 @@ catalogs:
     vite:
       specifier: ^7.3.1
       version: 7.3.1
+    vite-tsconfig-paths:
+      specifier: ^6.0.2
+      version: 6.0.4
+    vitest:
+      specifier: ^3.0.5
+      version: 3.2.4
+    web-vitals:
+      specifier: ^5.1.0
+      version: 5.1.0
 
 overrides:
   brace-expansion@<=2.0.1: 2.0.2
@@ -214,22 +253,22 @@ importers:
   apps/docs:
     dependencies:
       '@tailwindcss/vite':
-        specifier: ^4.0.6
+        specifier: 'catalog:'
         version: 4.1.18(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
       '@tanstack/react-devtools':
-        specifier: ^0.7.0
+        specifier: 'catalog:'
         version: 0.7.11(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(solid-js@1.9.10)
       '@tanstack/react-query':
-        specifier: ^5.66.5
+        specifier: 'catalog:'
         version: 5.90.16(react@19.2.3)
       '@tanstack/react-query-devtools':
-        specifier: ^5.84.2
+        specifier: 'catalog:'
         version: 5.91.2(@tanstack/react-query@5.90.16(react@19.2.3))(react@19.2.3)
       '@tanstack/react-router':
-        specifier: ^1.132.0
+        specifier: 'catalog:'
         version: 1.153.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@tanstack/react-router-devtools':
-        specifier: ^1.132.0
+        specifier: 'catalog:'
         version: 1.149.3(@tanstack/react-router@1.153.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.153.2)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@tanstack/react-router-ssr-query':
         specifier: ^1.131.7
@@ -241,22 +280,22 @@ importers:
         specifier: ^1.132.0
         version: 1.153.2(@tanstack/react-router@1.153.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
       lucide-react:
-        specifier: ^0.561.0
+        specifier: 'catalog:'
         version: 0.561.0(react@19.2.3)
       nitro:
         specifier: npm:nitro-nightly@latest
         version: nitro-nightly@3.0.1-20260120-140218-d2383f00(drizzle-orm@0.45.1(@types/pg@8.16.0)(kysely@0.28.8)(pg@8.16.3))(lru-cache@11.2.4)(rolldown@1.0.0-beta.59)(rollup@4.53.3)(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
       react:
-        specifier: ^19.2.0
+        specifier: 'catalog:'
         version: 19.2.3
       react-dom:
-        specifier: ^19.2.0
+        specifier: 'catalog:'
         version: 19.2.3(react@19.2.3)
       tailwindcss:
-        specifier: ^4.0.6
+        specifier: 'catalog:'
         version: 4.1.18
       vite-tsconfig-paths:
-        specifier: ^6.0.2
+        specifier: 'catalog:'
         version: 6.0.4(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
     devDependencies:
       '@repo/api':
@@ -275,49 +314,49 @@ importers:
         specifier: workspace:*
         version: link:../../tools/typescript
       '@tanstack/devtools-vite':
-        specifier: ^0.3.11
+        specifier: 'catalog:'
         version: 0.3.12(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
       '@tanstack/eslint-config':
-        specifier: ^0.3.0
+        specifier: ^0.3.4
         version: 0.3.4(@typescript-eslint/utils@8.53.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@testing-library/dom':
-        specifier: ^10.4.0
+        specifier: 'catalog:'
         version: 10.4.1
       '@testing-library/react':
-        specifier: ^16.2.0
+        specifier: 'catalog:'
         version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@types/node':
-        specifier: ^22.10.2
+        specifier: 'catalog:'
         version: 22.19.7
       '@types/react':
-        specifier: ^19.2.0
+        specifier: 'catalog:'
         version: 19.2.8
       '@types/react-dom':
-        specifier: ^19.2.0
+        specifier: 'catalog:'
         version: 19.2.3(@types/react@19.2.8)
       '@vitejs/plugin-react':
-        specifier: ^5.0.4
+        specifier: 'catalog:'
         version: 5.1.2(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
       babel-plugin-react-compiler:
-        specifier: ^1.0.0
+        specifier: 'catalog:'
         version: 1.0.0
       jsdom:
-        specifier: ^27.0.0
+        specifier: 'catalog:'
         version: 27.4.0(@noble/hashes@2.0.1)
       prettier:
-        specifier: ^3.5.3
+        specifier: 'catalog:'
         version: 3.7.4
       typescript:
-        specifier: ^5.7.2
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: ^7.1.7
+        specifier: 'catalog:'
         version: 7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
       vitest:
-        specifier: ^3.0.5
+        specifier: 'catalog:'
         version: 3.2.4(@types/node@22.19.7)(jiti@2.6.1)(jsdom@27.4.0(@noble/hashes@2.0.1))(lightningcss@1.30.2)(tsx@4.21.0)
       web-vitals:
-        specifier: ^5.1.0
+        specifier: 'catalog:'
         version: 5.1.0
 
   apps/server:
