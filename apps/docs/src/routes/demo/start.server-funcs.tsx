@@ -17,19 +17,17 @@ const loggedServerFunction = createServerFn({ method: "GET" }).middleware([
 
 const TODOS_FILE = 'todos.json';
 
+const data = [
+  { id: 1, name: 'Get groceries' },
+  { id: 2, name: 'Buy a new phone' },
+];
+
 async function readTodos() {
   return JSON.parse(
-    await fs.promises.readFile(TODOS_FILE, 'utf-8').catch(() =>
-      JSON.stringify(
-        [
-          { id: 1, name: 'Get groceries' },
-          { id: 2, name: 'Buy a new phone' },
-        ],
-        null,
-        2,
-      ),
-    ),
-  );
+    await fs.promises
+      .readFile(TODOS_FILE, 'utf-8')
+      .catch(() => JSON.stringify(data, null, 2)),
+  ) as typeof data;
 }
 
 const getTodos = createServerFn({
