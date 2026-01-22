@@ -17,10 +17,10 @@ services:
         ["CMD-SHELL", "curl --fail --silent http://localhost:80/healthcheck"]
     depends_on:
       - server
-  notebook:
+  docs:
     build:
       context: .
-      dockerfile: ./apps/notebook/Dockerfile
+      dockerfile: ./apps/docs/Dockerfile
       args:
         # Backend API server - used at build time to create the bundle
         PUBLIC_SERVER_URL: http://localhost:3035

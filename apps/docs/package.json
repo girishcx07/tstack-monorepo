@@ -26,6 +26,7 @@
     "@tanstack/react-router-ssr-query": "catalog:",
     "@tanstack/react-start": "catalog:",
     "@tanstack/router-plugin": "catalog:",
+    "dotenv-cli": "catalog:",
     "lucide-react": "catalog:",
     "nitro": "npm:nitro-nightly@latest",
     "react": "catalog:",
