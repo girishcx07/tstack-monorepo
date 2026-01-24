@@ -24,7 +24,7 @@ const envSchema = v.object({
    * This will then be used to set the vite dev server's host and port.
    */
   PUBLIC_WEB_URL: v.pipe(
-    v.optional(v.string(), 'http://localhost:3035'),
+    v.optional(v.string(), 'http://localhost:8085'),
     v.url(),
   ),
 
