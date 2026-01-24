@@ -55,11 +55,6 @@ apps
   |   └─ tailwindcss
   ├─ server
   |   └─ hono (wrapper for api & auth)
-  |
-  ├─ notebook
-  |   ├─ react (vite)
-  |   ├─ tanstack (router, query, form)
-  |   └─ tailwindcss
 packages
   ├─ api
   |   └─ orpc with valibot
@@ -146,7 +141,6 @@ pnpm dev
 By default, the following URLs will be accessible:
 
 - Web (frontend): http://localhost:8085
-- Notebook (frontend): http://localhost:8086
 - Server (backend): http://localhost:3035
   - API - OpenAPI reference: http://localhost:3035/api
   - Auth - OpenAPI reference: http://localhost:3035/api/auth/reference
@@ -160,6 +154,7 @@ When using an external postgres database (e.g. from [supabase](https://supabase.
 Instead, you will need to modify the following environment variables:
 
 1. `SERVER_POSTGRES_URL` in the file `apps/server/.env`
+
    - used at runtime by the backend server in `pnpm dev`
 
 1. `DB_POSTGRES_URL` in the file `packages/db/.env`
@@ -334,7 +329,7 @@ mentioned above for you - this includes:
   - https://github.com/Dokploy/dokploy
   - http://dokploy.com
 
-Do note that for the **web** or **notebook** application, the `PUBLIC_SERVER_URL` variable
+Do note that for the **web** application, the `PUBLIC_SERVER_URL` variable
 available at build time (as a docker build argument), rather than an environment
 variable at runtime.
 
@@ -346,11 +341,6 @@ rather than referencing `http://localhost:8085` like in development.
 ### Using Major Platforms
 
 The **web** application is a simple React static site powered by Vite, which is
-easily deployed to platforms such as GitHub/GitLab pages, Vercel and Netlify.
-You can refer to the [vite documentation](https://vite.dev/guide/static-deploy)
-for deployment guides on all major platforms.
-
-The **notebook** application is a simple React static site powered by Vite, which is
 easily deployed to platforms such as GitHub/GitLab pages, Vercel and Netlify.
 You can refer to the [vite documentation](https://vite.dev/guide/static-deploy)
 for deployment guides on all major platforms.
@@ -376,23 +366,13 @@ backend hosted at `api.example.com`.
 
 ## Other Notes
 
-### Tanstack Start
-
-The following is configured in [vite.config.ts](apps/notebook/vite.config.ts) notebook
-application:
-
-```ts
-nitro(),
-tanstackStart(),
-```
-
 ### Tanstack Router
 
 The following is configured in [vite.config.ts](apps/web/vite.config.ts) web
 application:
 
 ```ts
-tanstackRouter({
+TanStackRouterVite({
   routeToken: 'layout',
 }),
 ```

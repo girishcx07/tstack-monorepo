@@ -10,11 +10,8 @@
     "clean": {
       "cache": false
     },
-    "test": {
-      "cache": false
-    },
     "build": {
-      "dependsOn": ["^build", "test"],
+      "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
     },

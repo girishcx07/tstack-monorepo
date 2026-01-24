@@ -34,9 +34,9 @@ function RootComponent() {
     <>
       <Navbar session={session} />
       <Toaster />
-      <main>
+      <div className="p-2 md:p-4">
         <Outlet />
-      </main>
+      </div>
       <React.Suspense>
         <TanStackRouterDevtools position="bottom-right" />
       </React.Suspense>

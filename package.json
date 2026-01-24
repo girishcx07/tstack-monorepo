@@ -16,13 +16,12 @@
     "format:fix": "pnpm format --write",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "lint:fix": "pnpm lint --fix",
-    "test": "turbo run test",
     "postclean": "git clean -xdf .cache .turbo node_modules",
     "start": "turbo run start",
     "typecheck": "turbo run typecheck",
     "ui-add": "turbo run ui-add -F @repo/ui --"
   },
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@10.28.1",
   "devDependencies": {
     "turbo": "catalog:"
   },

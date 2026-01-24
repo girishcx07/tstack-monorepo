@@ -12,11 +12,11 @@ import { nitro } from 'nitro/vite';
 const envSchema = v.object({
   /**
    * Since vite is only used during development, we can assume the structure
-   * will resemble a URL such as: http://localhost:8086.
+   * will resemble a URL such as: http://localhost:3036.
    * This will then be used to set the vite dev server's host and port.
    */
   PUBLIC_WEB_URL: v.pipe(
-    v.optional(v.string(), 'http://localhost:8086'),
+    v.optional(v.string(), 'http://localhost:3036'),
     v.url(),
   ),
 
@@ -38,8 +38,13 @@ const config = defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  envPrefix: 'PUBLIC_',
   base: env.PUBLIC_BASE_PATH,
+  envPrefix: 'PUBLIC_',
+  server: {
+    host,
+    port,
+    strictPort: true,
+  },
   build: {
     rollupOptions: {
       output: {
@@ -64,11 +69,6 @@ const config = defineConfig({
         },
       },
     },
-  },
-  server: {
-    host,
-    port,
-    strictPort: true,
   },
   plugins: [
     devtools(),

@@ -12,7 +12,9 @@
     "eslint",
     "nitro",
     "start",
-    "tanstack-query",
-    "compiler"
+    "compiler",
+    "mcp",
+    "better-auth",
+    "tanstack-query"
   ]
 }
