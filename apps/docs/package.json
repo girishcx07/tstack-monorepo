@@ -20,6 +20,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "catalog:",
     "@repo/auth": "workspace:*",
+    "@repo/ui": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-devtools": "catalog:",
     "@tanstack/react-query": "catalog:",
@@ -30,12 +31,14 @@
     "@tanstack/react-start": "catalog:",
     "@tanstack/router-plugin": "catalog:",
     "dotenv-cli": "catalog:",
+    "next-themes": "catalog:",
     "lucide-react": "catalog:",
     "nitro": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "valibot": "catalog:",
     "vite-tsconfig-paths": "catalog:",
+    "sonner": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -54,6 +57,7 @@
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "jsdom": "catalog:",
+    "shx": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:",

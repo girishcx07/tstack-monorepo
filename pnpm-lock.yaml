@@ -272,6 +272,9 @@ importers:
       '@repo/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.1.18(vite@7.3.1(@types/node@25.0.10)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
@@ -305,6 +308,9 @@ importers:
       lucide-react:
         specifier: 'catalog:'
         version: 0.561.0(react@19.2.3)
+      next-themes:
+        specifier: 'catalog:'
+        version: 0.4.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       nitro:
         specifier: 'catalog:'
         version: nitro-nightly@3.0.1-20260124-124125-d6734a17(drizzle-orm@0.45.1(@types/pg@8.16.0)(kysely@0.28.8)(pg@8.17.2))(lru-cache@11.2.4)(rolldown@1.0.0-beta.60)(rollup@4.53.3)(vite@7.3.1(@types/node@25.0.10)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
@@ -314,6 +320,9 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.2.3(react@19.2.3)
+      sonner:
+        specifier: 'catalog:'
+        version: 2.0.7(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       valibot:
         specifier: 'catalog:'
         version: 1.2.0(typescript@5.9.3)
@@ -369,6 +378,9 @@ importers:
       jsdom:
         specifier: 'catalog:'
         version: 27.4.0(@noble/hashes@2.0.1)
+      shx:
+        specifier: 'catalog:'
+        version: 0.4.0
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
