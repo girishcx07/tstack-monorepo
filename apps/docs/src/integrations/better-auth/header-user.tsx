@@ -1,13 +1,13 @@
-import { authClient } from '@/lib/auth-client'
-import { Link } from '@tanstack/react-router'
+import { authClient } from '@/lib/authClient';
+import { Link } from '@tanstack/react-router';
 
 export default function BetterAuthHeader() {
-  const { data: session, isPending } = authClient.useSession()
+  const { data: session, isPending } = authClient.useSession();
 
   if (isPending) {
     return (
       <div className="h-8 w-8 bg-neutral-100 dark:bg-neutral-800 animate-pulse" />
-    )
+    );
   }
 
   if (session?.user) {
@@ -29,7 +29,7 @@ export default function BetterAuthHeader() {
           Sign out
         </button>
       </div>
-    )
+    );
   }
 
   return (
@@ -39,5 +39,5 @@ export default function BetterAuthHeader() {
     >
       Sign in
     </Link>
-  )
+  );
 }

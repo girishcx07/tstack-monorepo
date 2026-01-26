@@ -19,6 +19,7 @@
   "prettier": "@repo/prettier-config",
   "dependencies": {
     "@modelcontextprotocol/sdk": "catalog:",
+    "@repo/auth": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-devtools": "catalog:",
     "@tanstack/react-query": "catalog:",
@@ -28,7 +29,6 @@
     "@tanstack/react-router-ssr-query": "catalog:",
     "@tanstack/react-start": "catalog:",
     "@tanstack/router-plugin": "catalog:",
-    "better-auth": "catalog:",
     "dotenv-cli": "catalog:",
     "lucide-react": "catalog:",
     "nitro": "catalog:",
