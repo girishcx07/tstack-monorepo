@@ -9,7 +9,9 @@ import { generateRootHtml } from './utils';
 
 // ========================================================================= //
 
-const trustedOrigins = [env.PUBLIC_WEB_URL].map((url) => new URL(url).origin);
+const trustedOrigins = [env.PUBLIC_WEB_URL, env.PUBLIC_DOCS_URL]
+  .filter((url) => url !== undefined)
+  .map((url) => new URL(url).origin);
 
 const db = createDb({ databaseUrl: env.SERVER_POSTGRES_URL });
 const auth = createAuth({
