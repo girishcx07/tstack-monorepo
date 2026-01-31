@@ -53,6 +53,10 @@ apps
   |   ├─ react (vite)
   |   ├─ tanstack (router, query, form)
   |   └─ tailwindcss
+  ├─ docs
+  |   ├─ react (tanstack start)
+  |   ├─ tanstack (router, query)
+  |   └─ tailwindcss
   ├─ server
   |   └─ hono (wrapper for api & auth)
 packages
@@ -140,7 +144,8 @@ pnpm dev
 
 By default, the following URLs will be accessible:
 
-- Web (frontend): http://localhost:8085
+- Web (frontend): http://localhost:3081
+- Docs (documentation app): http://localhost:3082
 - Server (backend): http://localhost:3035
   - API - OpenAPI reference: http://localhost:3035/api
   - Auth - OpenAPI reference: http://localhost:3035/api/auth/reference
@@ -154,7 +159,6 @@ When using an external postgres database (e.g. from [supabase](https://supabase.
 Instead, you will need to modify the following environment variables:
 
 1. `SERVER_POSTGRES_URL` in the file `apps/server/.env`
-
    - used at runtime by the backend server in `pnpm dev`
 
 1. `DB_POSTGRES_URL` in the file `packages/db/.env`
@@ -285,9 +289,10 @@ docker compose run --build --rm drizzle
 node dist/push.mjs
 ```
 
-You can then open the web link below in your browser:
+You can then open the web links below in your browser:
 
-- http://localhost:8085
+- Web: http://localhost:3081
+- Docs: http://localhost:3082
 
 Please note that these containers are run in production mode. For further
 details, see
@@ -296,6 +301,8 @@ details, see
 - [apps/server/Dockerfile](apps/server/Dockerfile)
 - [apps/web/Dockerfile](apps/web/Dockerfile)
 - [apps/web/nginx.conf](apps/web/nginx.conf)
+- [apps/docs/Dockerfile](apps/docs/Dockerfile)
+- [apps/docs/nginx.conf](apps/docs/nginx.conf)
 
 ## Deployment
 

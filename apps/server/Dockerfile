@@ -31,7 +31,7 @@ RUN turbo prune server --docker
 FROM builder-base AS installer
 
 COPY --from=builder /app/out/json/ .
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 COPY --from=builder /app/out/full/ .
 RUN pnpm --filter=server build
@@ -41,7 +41,7 @@ RUN pnpm --filter=server build
 FROM base AS production
 
 RUN addgroup --system --gid 1001 nodejs \
-    && adduser --system --uid 1001 --ingroup nodejs hono
+  && adduser --system --uid 1001 --ingroup nodejs hono
 
 COPY --from=installer --chown=hono:nodejs /app/apps/server/dist /app/dist
 

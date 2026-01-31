@@ -32,7 +32,7 @@ ARG PUBLIC_SERVER_API_PATH
 ENV PUBLIC_SERVER_API_PATH=${PUBLIC_SERVER_API_PATH}
 
 COPY --from=builder /app/out/json/ .
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 COPY --from=builder /app/out/full/ .
 RUN pnpm build

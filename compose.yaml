@@ -8,7 +8,29 @@ services:
         PUBLIC_SERVER_URL: http://localhost:3035
         PUBLIC_SERVER_API_PATH: /api
     ports:
-      - 8085:80
+      - 3081:80
+    healthcheck:
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      test:
+        ["CMD-SHELL", "curl --fail --silent http://localhost:80/healthcheck"]
+    depends_on:
+      - server
+
+  docs:
+    build:
+      context: .
+      dockerfile: ./apps/docs/Dockerfile
+      args:
+        # Backend API server - used at build time to create the bundle
+        PUBLIC_SERVER_URL: http://localhost:3035
+        PUBLIC_SERVER_API_PATH: /api
+        PUBLIC_DOCS_URL: http://localhost:3082
+        BETTER_AUTH_URL: http://localhost:3082
+        BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-please_change_this_in_production}
+    ports:
+      - 3082:80
     healthcheck:
       interval: 30s
       timeout: 10s
@@ -29,8 +51,9 @@ services:
       - SERVER_POSTGRES_URL=postgres://postgres:postgres@db:5432/postgres
       - SERVER_HOST=0.0.0.0
       - SERVER_PORT=3000
-      - PUBLIC_WEB_URL=http://localhost:8085
+      - PUBLIC_WEB_URL=http://localhost:3081
       - PUBLIC_SERVER_URL=http://localhost:3035
+      - PUBLIC_DOCS_URL=http://localhost:3082
     healthcheck:
       interval: 30s
       timeout: 10s

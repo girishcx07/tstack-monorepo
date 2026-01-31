@@ -30,7 +30,7 @@ RUN turbo prune @repo/db --docker
 FROM builder-base AS installer
 
 COPY --from=builder /app/out/json/ .
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 COPY --from=builder /app/out/full/ .
 RUN pnpm --filter=db container:build
