@@ -17,6 +17,11 @@ export const envSchema = v.object({
   ),
 
   /**
+   * The URL of this docs app. Used for redirects in server-side auth.
+   */
+  PUBLIC_DOCS_URL: v.pipe(v.string(), v.url()),
+
+  /**
    * Set this if you want to run or deploy your app at a base URL. This is
    * usually required for deploying a repository to Github/Gitlab pages.
    */

@@ -36,6 +36,7 @@
     "nitro": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "tailwindcss": "catalog:",
     "valibot": "catalog:",
     "vite-tsconfig-paths": "catalog:",
     "sonner": "catalog:",

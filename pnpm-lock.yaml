@@ -323,6 +323,9 @@ importers:
       sonner:
         specifier: 'catalog:'
         version: 2.0.7(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.1.18
       valibot:
         specifier: 'catalog:'
         version: 1.2.0(typescript@5.9.3)
