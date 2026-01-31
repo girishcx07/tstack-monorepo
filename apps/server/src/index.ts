@@ -15,7 +15,7 @@ const trustedOrigins = [env.PUBLIC_WEB_URL, env.PUBLIC_DOCS_URL]
 
 const db = createDb({ databaseUrl: env.SERVER_POSTGRES_URL });
 const auth = createAuth({
-  webUrl: env.PUBLIC_WEB_URL,
+  webUrls: [env.PUBLIC_WEB_URL, env.PUBLIC_DOCS_URL],
   serverUrl: env.PUBLIC_SERVER_URL,
   apiPath: env.PUBLIC_SERVER_API_PATH,
   authSecret: env.SERVER_AUTH_SECRET,

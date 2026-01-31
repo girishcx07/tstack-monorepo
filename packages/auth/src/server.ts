@@ -6,7 +6,7 @@ import urlJoin from 'url-join';
 import type { DatabaseInstance } from '@repo/db/client';
 
 export interface AuthOptions {
-  webUrl: string;
+  webUrls: string[];
   serverUrl: string;
   apiPath: `/${string}`;
   authSecret: string;
@@ -32,7 +32,7 @@ export const getBaseOptions = (db: DatabaseInstance) =>
   }) satisfies BetterAuthOptions;
 
 export const createAuth = ({
-  webUrl,
+  webUrls,
   serverUrl,
   apiPath,
   db,
@@ -42,7 +42,7 @@ export const createAuth = ({
     ...getBaseOptions(db),
     baseURL: urlJoin(serverUrl, apiPath, 'auth'),
     secret: authSecret,
-    trustedOrigins: [webUrl].map((url) => new URL(url).origin),
+    trustedOrigins: webUrls.map((url) => new URL(url).origin),
     session: {
       cookieCache: {
         enabled: true,
