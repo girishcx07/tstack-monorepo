@@ -31,12 +31,19 @@ services:
         BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-please_change_this_in_production}
     ports:
       - 3082:80
+    environment:
+      - HOST=127.0.0.1
+      - PORT=3000
+      - PUBLIC_SERVER_URL=http://localhost:3035
+      - PUBLIC_DOCS_URL=http://localhost:3082
+      - BETTER_AUTH_URL=http://localhost:3082
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-please_change_this_in_production}
     healthcheck:
       interval: 30s
       timeout: 10s
       retries: 3
       test:
-        ["CMD-SHELL", "curl --fail --silent http://localhost:80/healthcheck"]
+        ["CMD-SHELL", "wget --quiet --spider http://127.0.0.1:80/healthcheck || exit 1"]
     depends_on:
       - server
 

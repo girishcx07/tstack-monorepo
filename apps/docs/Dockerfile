@@ -50,12 +50,33 @@ RUN pnpm --filter=docs build
 
 FROM nginx:stable-alpine AS production
 
+# Install Node.js in the nginx container to run the SSR server
+RUN apk add --no-cache nodejs npm
+
 WORKDIR /app
 
+# Copy nginx configuration (reverse proxy setup)
 COPY apps/docs/nginx.conf /etc/nginx/nginx.conf
-COPY --from=installer /app/apps/docs/.output/public /usr/share/nginx/html
+
+# Copy the built output from installer stage
+COPY --from=installer /app/apps/docs/.output /app/.output
+COPY --from=installer /app/apps/docs/public /app/public
+
+# Create startup script to run both Node.js and nginx
+RUN echo '#!/bin/sh' > /start.sh && \
+  echo 'cd /app && node .output/server/index.mjs &' >> /start.sh && \
+  echo 'nginx -g "daemon off;"' >> /start.sh && \
+  chmod +x /start.sh
+
+# Expose ports
+EXPOSE 80
+
+# Set environment variables for the Node.js server
+ENV HOST=127.0.0.1
+ENV PORT=3000
 
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
-  CMD curl --fail --silent http://0.0.0.0:80/healthcheck || exit 1
+  CMD wget --quiet --spider http://127.0.0.1:80/healthcheck || exit 1
 
-CMD ["nginx", "-g", "daemon off;"]
+# Run startup script
+CMD ["/start.sh"]
