@@ -1,37 +1,23 @@
 import { createServerFn } from '@tanstack/react-start';
 import { getRequest } from '@tanstack/react-start/server';
 import { redirect } from '@tanstack/react-router';
+import { auth } from '@/lib/auth';
 import { env } from '@/env';
 
 /**
  * Server-side auth functions for the docs app.
- * These use the main server's auth API to check sessions and handle redirects.
+ * Uses direct auth API for session management with proper cookie handling.
  */
 
 /**
- * Get the current session from the main server by forwarding cookies.
+ * Get the current session using direct auth API.
  */
 export const getServerSession = createServerFn({ method: 'GET' }).handler(
   async () => {
     const request = getRequest();
-    const cookie = request?.headers.get('cookie') ?? '';
+    const headers = request?.headers ?? new Headers();
 
-    const response = await fetch(
-      `${env.PUBLIC_SERVER_URL}${env.PUBLIC_SERVER_API_PATH}/auth/get-session`,
-      {
-        method: 'GET',
-        headers: {
-          cookie,
-        },
-        credentials: 'include',
-      },
-    );
-
-    if (!response.ok) {
-      return null;
-    }
-
-    const session = await response.json();
+    const session = await auth.api.getSession({ headers });
     return session ?? null;
   },
 );
