@@ -11,16 +11,16 @@
     "prefix": ""
   },
   "iconLibrary": "hugeicons",
+  "aliases": {
+    "ui": "@repo/ui/components",
+    "utils": "@repo/ui/utils",
+    "components": "@repo/ui/components",
+    "lib": "@repo/ui/lib",
+    "hooks": "@repo/ui/hooks"
+  },
   "menuColor": "default",
   "menuAccent": "subtle",
-  "aliases": {
-    "components": "#/components",
-    "utils": "#/lib/utils",
-    "ui": "#/src/components",
-    "lib": "#/lib",
-    "hooks": "#/hooks"
-  },
   "registries": {
-    "@basecn": "https://basecn.dev/r/{name}.json"
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
   }
 }
