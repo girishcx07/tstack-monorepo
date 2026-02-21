@@ -1,6 +1,7 @@
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
-import { getSession } from '#/lib/auth.server';
+import { getSession } from './lib/session';
+// import { getSession } from '#/lib/auth.server';
 
 export interface RouterContext {
   session: Awaited<ReturnType<typeof getSession>>;

@@ -20,7 +20,7 @@ const db = createDb({ databaseUrl: env.DB_POSTGRES_URL });
 export const auth = createAuth({
   trustedOrigins: [new URL(env.BETTER_AUTH_URL).origin],
   serverUrl: env.BETTER_AUTH_URL,
-  apiPath: '/api/auth',
+  apiPath: '/api',
   authSecret: env.BETTER_AUTH_SECRET,
   db,
   plugins: [tanstackStartCookies()],
