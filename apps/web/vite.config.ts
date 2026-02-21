@@ -55,6 +55,7 @@ export default defineConfig({
     host,
     port,
     strictPort: true,
+    open: true,
   },
   build: {
     rollupOptions: {

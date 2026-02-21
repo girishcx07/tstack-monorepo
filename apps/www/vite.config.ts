@@ -14,7 +14,7 @@ const wwwPort = Number(
 );
 
 const config = defineConfig({
-  server: { port: wwwPort },
+  server: { port: wwwPort, open: true },
   plugins: [
     devtools(),
     // TODO: nitro is parked here for future use (e.g. custom server configuration).
