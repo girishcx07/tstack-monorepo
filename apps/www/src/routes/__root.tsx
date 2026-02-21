@@ -1,10 +1,17 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
+import {
+  HeadContent,
+  Scripts,
+  createRootRouteWithContext,
+  Outlet,
+} from '@tanstack/react-router';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
+import { TanStackDevtools } from '@tanstack/react-devtools';
+import type { RouterContext } from '../router';
+import { authClient } from '../lib/auth-client';
 
-import appCss from '../styles.css?url'
+import appCss from '../styles.css?url';
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
     meta: [
       {
@@ -26,8 +33,45 @@ export const Route = createRootRoute({
     ],
   }),
 
-  shellComponent: RootDocument,
-})
+  component: RootComponent,
+});
+
+function RootComponent() {
+  const { data: session, isPending } = authClient.useSession();
+
+  return (
+    <RootDocument>
+      <div className="flex flex-col min-h-screen">
+        <header className="p-4 border-b">
+          <div className="flex justify-between items-center max-w-5xl mx-auto">
+            <h1 className="font-bold">www App</h1>
+            <div>
+              {isPending ? (
+                'Loading...'
+              ) : session ? (
+                <span>Welcome, {session.user.name ?? session.user.email}</span>
+              ) : (
+                <button
+                  onClick={() =>
+                    authClient.signIn.email({
+                      email: 'test@example.com',
+                      password: 'password',
+                    })
+                  }
+                >
+                  Sign In Test
+                </button>
+              )}
+            </div>
+          </div>
+        </header>
+        <main className="flex-1 p-4 max-w-5xl mx-auto w-full">
+          <Outlet />
+        </main>
+      </div>
+    </RootDocument>
+  );
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
@@ -51,5 +95,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
