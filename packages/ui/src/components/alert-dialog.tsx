@@ -4,7 +4,7 @@ import * as React from 'react';
 import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog';
 
 import { cn } from '#/lib/utils';
-import { Button } from 'src/components/button';
+import { Button } from '#/src/components/button';
 
 function AlertDialog({ ...props }: AlertDialogPrimitive.Root.Props) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
@@ -159,8 +159,7 @@ function AlertDialogCancel({
   variant = 'outline',
   size = 'default',
   ...props
-}: AlertDialogPrimitive.Close.Props &
-  Pick<React.ComponentProps<typeof Button>, 'variant' | 'size'>) {
+}: AlertDialogPrimitive.Close.Props & React.ComponentProps<typeof Button>) {
   return (
     <AlertDialogPrimitive.Close
       data-slot="alert-dialog-cancel"
