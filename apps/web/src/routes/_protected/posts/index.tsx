@@ -128,12 +128,7 @@ function RouteComponent() {
                 </Button>
               }
             />
-            <TooltipContent
-              side="top"
-              align="center"
-              sideOffset={4}
-              className="bg-neutral-500 fill-neutral-500 duration-0"
-            >
+            <TooltipContent side="top" align="center" sideOffset={4}>
               <span>Sort by created date ({search.sortDirection})</span>
             </TooltipContent>
           </Tooltip>

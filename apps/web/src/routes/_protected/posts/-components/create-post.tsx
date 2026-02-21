@@ -95,11 +95,11 @@ and to the unceasing vigilance of agents of the United States Handicapper Genera
 
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-      <DialogTrigger render={<Button className="h-8.5 px-3 md:h-10 md:px-4" />}>
+      <DialogTrigger render={<Button />}>
         <Plus />
         Create
       </DialogTrigger>
-      <DialogContent className="max-w-[90vw] xl:max-w-5xl data-[state=open]:slide-in-from-right-1/3 data-[state=closed]:slide-out-to-right-1/3 rounded-lg">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Create Post</DialogTitle>
           <DialogDescription>

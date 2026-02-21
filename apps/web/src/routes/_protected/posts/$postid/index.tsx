@@ -76,12 +76,7 @@ function RouteComponent() {
               <ArrowLeft />
             </Link>
           </TooltipTrigger>
-          <TooltipContent
-            side="right"
-            align="center"
-            sideOffset={4}
-            className="bg-neutral-500 fill-neutral-500 duration-0"
-          >
+          <TooltipContent side="right" align="center" sideOffset={4}>
             <span>View all posts</span>
           </TooltipContent>
         </Tooltip>

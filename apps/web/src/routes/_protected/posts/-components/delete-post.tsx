@@ -52,12 +52,7 @@ export default function DeletePostButton({
             </Button>
           }
         />
-        <TooltipContent
-          side="left"
-          align="center"
-          sideOffset={4}
-          className="bg-neutral-500 fill-neutral-500 duration-0"
-        >
+        <TooltipContent side="left" align="center" sideOffset={4}>
           <span>Delete Post</span>
         </TooltipContent>
       </Tooltip>
