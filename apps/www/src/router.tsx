@@ -1,20 +1,20 @@
-import { createRouter } from '@tanstack/react-router';
-import { routeTree } from './routeTree.gen';
-import type { AuthSession } from './lib/auth-client';
+import { createRouter as createTanStackRouter } from '@tanstack/react-router'
+import { routeTree } from './routeTree.gen'
 
-export interface RouterContext {
-  session: AuthSession;
+export function getRouter() {
+  const router = createTanStackRouter({
+    routeTree,
+
+    scrollRestoration: true,
+    defaultPreload: 'intent',
+    defaultPreloadStaleTime: 0,
+  })
+
+  return router
 }
 
-export const getRouter = () => {
-  const router = createRouter({
-    routeTree,
-    context: {
-      session: null,
-    },
-    scrollRestoration: true,
-    defaultPreloadStaleTime: 0,
-  });
-
-  return router;
-};
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: ReturnType<typeof getRouter>
+  }
+}

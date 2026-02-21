@@ -1,5 +1,11 @@
-//  @ts-check
+import baseConfig from '@repo/eslint-config/base';
+import reactConfig from '@repo/eslint-config/react';
 
-import { tanstackConfig } from '@tanstack/eslint-config'
-
-export default [...tanstackConfig]
+/** @type {import('typescript-eslint').Config} */
+export default [
+  {
+    ignores: ['.output/**', 'dist/**', 'routeTree.gen.ts'],
+  },
+  ...baseConfig,
+  ...reactConfig,
+];
