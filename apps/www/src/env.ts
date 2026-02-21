@@ -1,7 +1,6 @@
 import * as v from 'valibot';
 
-const DEFAULT_SERVER_PORT = 3035;
-const DEFAULT_SERVER_HOST = 'localhost';
+const DEFAULT_WWW_PORT = 3001;
 
 const createPortSchema = ({ defaultPort }: { defaultPort: number }) =>
   v.pipe(
@@ -13,15 +12,16 @@ const createPortSchema = ({ defaultPort }: { defaultPort: number }) =>
   );
 
 export const envSchema = v.object({
-  SERVER_PORT: createPortSchema({ defaultPort: DEFAULT_SERVER_PORT }),
-  SERVER_HOST: v.pipe(
-    v.optional(v.string(), DEFAULT_SERVER_HOST),
-    v.minLength(1),
-  ),
-  SERVER_AUTH_SECRET: v.pipe(v.string(), v.minLength(1)),
-  SERVER_POSTGRES_URL: v.string(),
+  WWW_PORT: createPortSchema({ defaultPort: DEFAULT_WWW_PORT }),
 
-  // Backend URL, used to configure OpenAPI (Scalar)
+  // Database — used for the www app's own Better Auth instance
+  DB_POSTGRES_URL: v.pipe(v.string(), v.minLength(1)),
+
+  // Better Auth
+  BETTER_AUTH_SECRET: v.pipe(v.string(), v.minLength(32)),
+  BETTER_AUTH_URL: v.pipe(v.string(), v.url()),
+
+  // Backend API server (Hono) — used for other API calls
   PUBLIC_SERVER_URL: v.pipe(v.string(), v.url()),
   PUBLIC_SERVER_API_PATH: v.optional(
     v.custom<`/${string}`>(
@@ -31,10 +31,8 @@ export const envSchema = v.object({
     '/api',
   ),
 
-  // Frontend URL(s), used to configure trusted origins (CORS)
+  // This app's public URL
   PUBLIC_WEB_URL: v.pipe(v.string(), v.url()),
-  // Optional: include the www SSR app as a trusted CORS origin
-  PUBLIC_WWW_URL: v.optional(v.pipe(v.string(), v.url())),
 });
 
 export const env = v.parse(envSchema, process.env);

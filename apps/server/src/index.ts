@@ -9,11 +9,14 @@ import { generateRootHtml } from './utils';
 
 // ========================================================================= //
 
-const trustedOrigins = [env.PUBLIC_WEB_URL].map((url) => new URL(url).origin);
+// Include all trusted frontend origins (web SPA + optional www SSR app)
+const trustedOrigins = [env.PUBLIC_WEB_URL, env.PUBLIC_WWW_URL]
+  .filter((url): url is string => Boolean(url))
+  .map((url) => new URL(url).origin);
 
 const db = createDb({ databaseUrl: env.SERVER_POSTGRES_URL });
 const auth = createAuth({
-  webUrl: env.PUBLIC_WEB_URL,
+  trustedOrigins,
   serverUrl: env.PUBLIC_SERVER_URL,
   apiPath: env.PUBLIC_SERVER_API_PATH,
   authSecret: env.SERVER_AUTH_SECRET,

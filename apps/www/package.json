@@ -8,7 +8,7 @@
   "scripts": {
     "build": "pnpm env:run build",
     "clean": "git clean -xdf .cache .output .turbo node_modules",
-    "dev": "pnpm env:run dev --port 3000",
+    "dev": "pnpm env:run dev --port 3001",
     "env:copy-example": "shx -- cp -n .env.example .env",
     "env:remove": "shx -- rm -f .env",
     "env:run": "dotenv -- vite",
@@ -23,6 +23,7 @@
     "@hugeicons/core-free-icons": "catalog:",
     "@hugeicons/react": "catalog:",
     "@repo/auth": "workspace:*",
+    "@repo/db": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-devtools": "catalog:",
@@ -31,13 +32,15 @@
     "@tanstack/react-start": "catalog:",
     "@tanstack/router-devtools": "catalog:",
     "@tanstack/router-plugin": "catalog:",
+    "better-auth": "catalog:",
     "dotenv-cli": "catalog:",
     "lucide-react": "catalog:",
     "nitro": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tailwindcss": "catalog:",
-    "url-join": "catalog:"
+    "url-join": "catalog:",
+    "valibot": "catalog:"
   },
   "prettier": "@repo/prettier-config",
   "devDependencies": {

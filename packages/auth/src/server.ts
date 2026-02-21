@@ -6,11 +6,21 @@ import urlJoin from 'url-join';
 import type { DatabaseInstance } from '@repo/db/client';
 
 export interface AuthOptions {
-  webUrl: string;
+  /**
+   * All trusted frontend origins. Pass origin strings (e.g. "http://localhost:3000").
+   * Supports multiple apps sharing the same server (e.g. web SPA + www SSR).
+   */
+  trustedOrigins: string[];
   serverUrl: string;
   apiPath: `/${string}`;
   authSecret: string;
   db: DatabaseInstance;
+  /**
+   * Optional extra plugins appended after the base plugins.
+   * Use this to inject framework-specific plugins (e.g. tanstackStartCookies)
+   * without coupling this shared package to any one framework.
+   */
+  plugins?: BetterAuthOptions['plugins'];
 }
 
 export type AuthInstance = ReturnType<typeof createAuth>;
@@ -32,17 +42,20 @@ export const getBaseOptions = (db: DatabaseInstance) =>
   }) satisfies BetterAuthOptions;
 
 export const createAuth = ({
-  webUrl,
+  trustedOrigins,
   serverUrl,
   apiPath,
   db,
   authSecret,
+  plugins: extraPlugins,
 }: AuthOptions) => {
+  const base = getBaseOptions(db);
   return betterAuth({
-    ...getBaseOptions(db),
+    ...base,
+    plugins: [...(base.plugins ?? []), ...(extraPlugins ?? [])],
     baseURL: urlJoin(serverUrl, apiPath, 'auth'),
     secret: authSecret,
-    trustedOrigins: [webUrl].map((url) => new URL(url).origin),
+    trustedOrigins,
     session: {
       cookieCache: {
         enabled: true,
