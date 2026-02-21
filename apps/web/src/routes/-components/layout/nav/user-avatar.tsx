@@ -1,4 +1,4 @@
-import { ExitIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import { LogOut, Moon, Sun } from 'lucide-react';
 import {
   Avatar,
   AvatarFallback,
@@ -22,14 +22,14 @@ export default function UserAvatar({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer w-8.5 h-8.5">
-          <AvatarImage referrerPolicy="no-referrer" src={user.image ?? ''} />
-          <AvatarFallback className="text-sm">
-            {(user.name?.split(' ')[0]?.[0] || '') +
-              (user.name?.split(' ')[1]?.[0] || '')}
-          </AvatarFallback>
-        </Avatar>
+      <DropdownMenuTrigger
+        render={<Avatar className="cursor-pointer w-8.5 h-8.5" />}
+      >
+        <AvatarImage referrerPolicy="no-referrer" src={user.image ?? ''} />
+        <AvatarFallback className="text-sm">
+          {(user.name?.split(' ')[0]?.[0] || '') +
+            (user.name?.split(' ')[1]?.[0] || '')}
+        </AvatarFallback>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
         <div className="flex flex-col p-2 max-w-full wrap-break-word whitespace-break-spaces">
@@ -45,7 +45,7 @@ export default function UserAvatar({
             setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
           }}
         >
-          {resolvedTheme === 'dark' ? <MoonIcon /> : <SunIcon />}
+          {resolvedTheme === 'dark' ? <Moon /> : <Sun />}
           <span className="ml-1.25 capitalize">Theme</span>
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -54,7 +54,7 @@ export default function UserAvatar({
           }}
           className="cursor-pointer"
         >
-          <ExitIcon className="mr-1.25 w-5 ml-[0.5px]" />
+          <LogOut className="mr-1.25 w-5 ml-[0.5px]" />
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

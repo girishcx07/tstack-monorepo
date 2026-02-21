@@ -12,6 +12,7 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
+    "@repo/ui": "workspace:*",
     "@base-ui/react": "^1.2.0",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@hugeicons/core-free-icons": "^3.1.1",
@@ -35,6 +36,7 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "devDependencies": {
+    "@repo/tailwind-config": "workspace:*",
     "@tanstack/devtools-vite": "^0.3.11",
     "@tanstack/eslint-config": "^0.3.0",
     "@testing-library/dom": "^10.4.0",

@@ -14,7 +14,10 @@
   "dependencies": {
     "eslint": "catalog:",
     "tailwindcss": "catalog:",
-    "tailwindcss-animate": "catalog:"
+    "tailwindcss-animate": "catalog:",
+    "tw-animate-css": "catalog:",
+    "shadcn": "^3.8.5",
+    "@fontsource-variable/jetbrains-mono": "catalog:"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

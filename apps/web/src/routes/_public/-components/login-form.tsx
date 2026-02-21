@@ -1,4 +1,4 @@
-import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons';
+import { EyeOff, Eye } from 'lucide-react';
 import { Button } from '@repo/ui/components/button';
 import { Input } from '@repo/ui/components/input';
 import { Label } from '@repo/ui/components/label';
@@ -107,7 +107,7 @@ export default function LoginCredentialsForm() {
                       setIsPasswordVisible(!isPasswordVisible);
                     }}
                   >
-                    {isPasswordVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
+                    {isPasswordVisible ? <Eye /> : <EyeOff />}
                   </Button>
                 </div>
                 <FormFieldInfo field={field} />

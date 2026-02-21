@@ -1,9 +1,9 @@
 import {
   ExternalLinkIcon,
   Link2Icon,
-  MoonIcon,
-  SunIcon,
-} from '@radix-ui/react-icons';
+  Moon,
+  Sun,
+} from 'lucide-react';
 import { Button } from '@repo/ui/components/button';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useTheme } from 'next-themes';
@@ -110,9 +110,9 @@ function RouteComponent() {
           onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
         >
           {resolvedTheme === 'dark' ? (
-            <MoonIcon className="text-yellow-300" />
+            <Moon className="text-yellow-300" />
           ) : (
-            <SunIcon className="text-red-600" />
+            <Sun className="text-red-600" />
           )}
         </Button>
       </div>

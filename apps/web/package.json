@@ -16,7 +16,6 @@
     "typecheck": "tsc --build"
   },
   "dependencies": {
-    "@radix-ui/react-icons": "catalog:",
     "@repo/auth": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tailwindcss/vite": "catalog:",
@@ -25,6 +24,7 @@
     "@tanstack/react-router": "catalog:",
     "@tanstack/router-devtools": "catalog:",
     "dotenv-cli": "catalog:",
+    "lucide-react": "^0.471.0",
     "next-themes": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",

@@ -29,10 +29,12 @@
     "ui-add": "pnpm dlx shadcn@latest add"
   },
   "dependencies": {
-    "@radix-ui/react-icons": "catalog:",
+    "@base-ui/react": "catalog:",
+    "@hugeicons/core-free-icons": "catalog:",
+    "@hugeicons/react": "catalog:",
     "class-variance-authority": "catalog:",
+    "clsx": "^2.1.1",
     "next-themes": "catalog:",
-    "radix-ui": "catalog:",
     "sonner": "catalog:",
     "tailwind-merge": "catalog:"
   },

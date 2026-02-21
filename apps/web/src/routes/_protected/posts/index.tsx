@@ -1,16 +1,10 @@
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  MagnifyingGlassIcon,
-  TrashIcon,
-} from '@radix-ui/react-icons';
+import { ArrowDownIcon, ArrowUpIcon, Search, Trash } from 'lucide-react';
 import { Button } from '@repo/ui/components/button';
 import { Input } from '@repo/ui/components/input';
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-  TooltipArrow,
   TooltipProvider,
 } from '@repo/ui/components/tooltip';
 import { useQuery } from '@tanstack/react-query';
@@ -73,7 +67,7 @@ function PostItem({
       </div>
 
       <DeletePostButton postId={post.id}>
-        <TrashIcon />
+        <Trash />
       </DeletePostButton>
     </Link>
   );
@@ -111,35 +105,36 @@ function RouteComponent() {
       <hr className="mt-4 border-b-2 border-gray-400" />
 
       <div className="mt-4 flex justify-end items-center relative gap-x-2">
-        <TooltipProvider>
-          <Tooltip delayDuration={0}>
-            <TooltipTrigger asChild onClick={(e) => e.preventDefault()}>
-              <Button
-                variant="link"
-                className="w-12 border border-input hover:brightness-150"
-                onClick={() =>
-                  updateFilters(
-                    'sortDirection',
-                    search.sortDirection === 'asc' ? 'desc' : 'asc',
-                  )
-                }
-              >
-                {search.sortDirection === 'asc' ? (
-                  <ArrowUpIcon />
-                ) : (
-                  <ArrowDownIcon />
-                )}
-              </Button>
-            </TooltipTrigger>
+        <TooltipProvider delay={0}>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant="link"
+                  className="w-12 border border-input hover:brightness-150"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    updateFilters(
+                      'sortDirection',
+                      search.sortDirection === 'asc' ? 'desc' : 'asc',
+                    );
+                  }}
+                >
+                  {search.sortDirection === 'asc' ? (
+                    <ArrowUpIcon />
+                  ) : (
+                    <ArrowDownIcon />
+                  )}
+                </Button>
+              }
+            />
             <TooltipContent
               side="top"
               align="center"
               sideOffset={4}
-              onPointerDownOutside={(e) => e.preventDefault()}
               className="bg-neutral-500 fill-neutral-500 duration-0"
             >
               <span>Sort by created date ({search.sortDirection})</span>
-              <TooltipArrow width={15} height={10} className="duration-0" />
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -150,7 +145,7 @@ function RouteComponent() {
             placeholder="Search by title..."
             className="w-full pr-10 placeholder:italic peer"
           />
-          <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-input peer-focus:text-foreground transition-colors" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-input peer-focus:text-foreground transition-colors" />
         </div>
       </div>
 
