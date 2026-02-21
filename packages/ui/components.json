@@ -12,7 +12,7 @@
   },
   "iconLibrary": "hugeicons",
   "aliases": {
-    "ui": "src/components",
+    "ui": "#/src/components",
     "utils": "#/lib/utils",
     "components": "#/components",
     "lib": "#/lib",
