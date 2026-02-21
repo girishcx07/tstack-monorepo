@@ -18,6 +18,26 @@ services:
     depends_on:
       - server
 
+  www:
+    build:
+      context: .
+      dockerfile: ./apps/www/Dockerfile
+      args:
+        PUBLIC_SERVER_URL: http://localhost:3035
+        PUBLIC_SERVER_API_PATH: /api
+    ports:
+      - 3000:80
+    environment:
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-dev_secret_for_better_auth_testing}
+      - BETTER_AUTH_URL=http://localhost:3000
+    healthcheck:
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:80/healthcheck"]
+    depends_on:
+      - server
+
   server:
     build:
       context: .
