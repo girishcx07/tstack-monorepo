@@ -32,7 +32,6 @@
     "@tanstack/react-start": "catalog:",
     "@tanstack/router-devtools": "catalog:",
     "@tanstack/router-plugin": "catalog:",
-    "better-auth": "catalog:",
     "dotenv-cli": "catalog:",
     "lucide-react": "catalog:",
     "nitro": "catalog:",

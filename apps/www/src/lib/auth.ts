@@ -1,5 +1,4 @@
-import { createAuth } from '@repo/auth/server';
-import { tanstackStartCookies } from 'better-auth/tanstack-start';
+import { createAuth, tanstackStartCookies } from '@repo/auth/server';
 import { createDb } from '@repo/db/client';
 
 import { env } from '#/env';
@@ -18,10 +17,10 @@ const db = createDb({ databaseUrl: env.DB_POSTGRES_URL });
  * IMPORTANT: `tanstackStartCookies` must always be the LAST plugin in the array.
  */
 export const auth = createAuth({
-  trustedOrigins: [new URL(env.BETTER_AUTH_URL).origin],
-  serverUrl: env.BETTER_AUTH_URL,
+  trustedOrigins: [new URL(env.PUBLIC_WEB_URL).origin],
+  serverUrl: env.PUBLIC_WEB_URL,
   apiPath: '/api',
-  authSecret: env.BETTER_AUTH_SECRET,
+  authSecret: env.SERVER_AUTH_SECRET,
   db,
   plugins: [tanstackStartCookies()],
 });

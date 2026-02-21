@@ -4,6 +4,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { openAPI } from 'better-auth/plugins';
 import urlJoin from 'url-join';
 import type { DatabaseInstance } from '@repo/db/client';
+export { tanstackStartCookies } from 'better-auth/tanstack-start';
 
 export interface AuthOptions {
   /**

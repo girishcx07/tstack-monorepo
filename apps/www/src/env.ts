@@ -18,8 +18,7 @@ export const envSchema = v.object({
   DB_POSTGRES_URL: v.pipe(v.string(), v.minLength(1)),
 
   // Better Auth
-  BETTER_AUTH_SECRET: v.pipe(v.string(), v.minLength(32)),
-  BETTER_AUTH_URL: v.pipe(v.string(), v.url()),
+  SERVER_AUTH_SECRET: v.pipe(v.string(), v.minLength(32)),
 
   // Backend API server (Hono) — used for other API calls
   PUBLIC_SERVER_URL: v.pipe(v.string(), v.url()),

@@ -1,16 +1,15 @@
-import { createAuthClient as createBetterAuthClient } from 'better-auth/react';
+import { createAuthClient as createRepoAuthClient } from '@repo/auth/client';
 
 /**
  * Client-side Better Auth client for the www app.
  * Points to this app's own auth endpoint (/api/auth/*).
  */
-export const authClient = createBetterAuthClient({
-  baseURL:
+export const authClient = createRepoAuthClient({
+  apiBaseUrl:
     typeof window !== 'undefined'
-      ? `${window.location.origin}/api/auth`
-      : process.env.BETTER_AUTH_URL,
+      ? window.location.origin
+      : (process.env.PUBLIC_WEB_URL as string),
+  apiBasePath: '/api',
 });
 
-export type AuthSession =
-  | ReturnType<typeof createBetterAuthClient>['$Infer']['Session']
-  | null;
+export type AuthSession = typeof authClient.$Infer.Session | null;
