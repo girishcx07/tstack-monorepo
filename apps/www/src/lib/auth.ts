@@ -1,9 +1,7 @@
 import { createAuth, tanstackStartCookies } from '@repo/auth/server';
 import { createDb } from '@repo/db/client';
 
-import { env } from '#/env';
-
-const db = createDb({ databaseUrl: env.DB_POSTGRES_URL });
+import { getServerEnv } from '#/env.server';
 
 /**
  * Server-side Better Auth instance for the www TanStack Start app.
@@ -16,11 +14,26 @@ const db = createDb({ databaseUrl: env.DB_POSTGRES_URL });
  *
  * IMPORTANT: `tanstackStartCookies` must always be the LAST plugin in the array.
  */
-export const auth = createAuth({
-  trustedOrigins: [new URL(env.PUBLIC_WEB_URL).origin],
-  serverUrl: env.PUBLIC_WEB_URL,
-  apiPath: '/api',
-  authSecret: env.SERVER_AUTH_SECRET,
-  db,
-  plugins: [tanstackStartCookies()],
-});
+type AuthInstance = ReturnType<typeof createAuth>;
+
+let cachedAuth: AuthInstance | null = null;
+
+export function getAuth(): AuthInstance {
+  if (cachedAuth) {
+    return cachedAuth;
+  }
+
+  const env = getServerEnv();
+  const db = createDb({ databaseUrl: env.DB_POSTGRES_URL });
+
+  cachedAuth = createAuth({
+    trustedOrigins: [new URL(env.VITE_PUBLIC_WEB_URL).origin],
+    serverUrl: env.VITE_PUBLIC_WEB_URL,
+    apiPath: '/api',
+    authSecret: env.SERVER_AUTH_SECRET,
+    db,
+    plugins: [tanstackStartCookies()],
+  });
+
+  return cachedAuth;
+}

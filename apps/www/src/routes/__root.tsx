@@ -6,16 +6,21 @@ import {
   createRootRouteWithContext,
   useRouter,
 } from '@tanstack/react-router';
-import { TanStackRouterDevtoolsPanel } from '@tanstack/router-devtools';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
 import type { RouterContext } from '../router';
 import { Footer } from '../components/layout/Footer';
 import { Header } from '../components/layout/Header';
 import { getSeoMeta } from '../lib/seo';
+import { getSession } from '../lib/session';
 
 import appCss from '../styles.css?url';
 
 export const Route = createRootRouteWithContext<RouterContext>()({
+  beforeLoad: async () => {
+    const session = await getSession();
+    return { session };
+  },
   head: () => {
     const defaultSeo = getSeoMeta();
 
@@ -41,14 +46,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      {/* 
-        SaaS Aesthetic: Clean architecture approach
-      */}
-      <body className="min-h-screen font-sans bg-background text-foreground antialiased selection:bg-black selection:text-white">
+      <body className="min-h-screen bg-background text-foreground antialiased selection:bg-black selection:text-white">
         <QueryClientProvider client={queryClient}>
-          <div className="flex min-h-screen flex-col">
+          <div className="app-shell flex min-h-screen flex-col">
             <Header />
-            <main className="flex-1 flex flex-col">{children}</main>
+            <main className="relative flex flex-1 flex-col">{children}</main>
             <Footer />
           </div>
           <TanStackDevtools

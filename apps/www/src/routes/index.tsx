@@ -1,62 +1,57 @@
 import { Button } from '@repo/ui/components/button';
 import { Card } from '@repo/ui/components/card';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import {
-  Zap,
-  Server,
-  Route as RouteIcon,
-  Shield,
-  Waves,
-  Sparkles,
   ArrowRight,
-  Code2,
-  CheckCircle2,
-  ChevronDown,
+  BookOpenText,
+  ChartNoAxesCombined,
+  LockKeyhole,
+  PenLine,
+  Sparkles,
+  Workflow,
 } from 'lucide-react';
-import { useState } from 'react';
 import { Section } from '../components/layout/Section';
+import { authClient } from '#/clients/authClient';
 import { getSeoMeta } from '../lib/seo';
 
-// --- Schema Markup for SEO ---
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'What exactly is TStack?',
+      name: 'What is PostCraft?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'TStack is a full-stack framework powered by TanStack Router for React. It seamlessly combines server capability with top-tier client routing.',
+        text: 'PostCraft is a posts workspace where teams create, review, and manage articles with secure authentication and a clean UI.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Why use this instead of Next.js or Remix?',
+      name: 'Can I access posts without logging in?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'It provides extreme type-safety out of the box, better flexibility for single-page and multi-page hybrid applications, without being tied to a specific infrastructure.',
+        text: 'No. Posts are protected and only visible after sign in so your content stays private.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Is it completely type-safe?',
+      name: 'Does PostCraft support account creation and sign in?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Search parameters, paths, API responses, and server functions are typed end-to-end, catching errors before they reach production.',
+        text: 'Yes. You can create an account from the login page and immediately start creating posts.',
       },
     },
   ],
 };
 
-// Route Configuration
 export const Route = createFileRoute('/')({
-  component: App,
+  component: HomePage,
   head: () => {
     const seo = getSeoMeta({
-      title: 'Enterprise React Framework | Build Scalable SaaS Fast',
+      title: 'PostCraft | Elegant Post Management Workspace',
       description:
-        'The ultimate full-stack React framework powered by TanStack Router. Build modern, type-safe, and SEO-optimized AI applications with powerful server functions.',
+        'Create and manage posts with a polished interface, secure authentication, and focused workflows built for teams.',
       schema: faqSchema,
     });
 
@@ -68,300 +63,167 @@ export const Route = createFileRoute('/')({
   },
 });
 
-// --- UI Components for the Page ---
+const featureCards = [
+  {
+    icon: <PenLine className="h-6 w-6 text-amber-600" />,
+    title: 'Fast Drafting',
+    description:
+      'Start writing instantly with focused editing flows and a simple structure that stays out of your way.',
+  },
+  {
+    icon: <Workflow className="h-6 w-6 text-blue-600" />,
+    title: 'Clear Workflow',
+    description:
+      'Move from idea to published post with predictable navigation and consistent UI states.',
+  },
+  {
+    icon: <LockKeyhole className="h-6 w-6 text-emerald-600" />,
+    title: 'Protected Content',
+    description:
+      'Posts and dashboard routes are protected so only authenticated users can access private content.',
+  },
+  {
+    icon: <ChartNoAxesCombined className="h-6 w-6 text-indigo-600" />,
+    title: 'Operational Clarity',
+    description:
+      'The dashboard surfaces your active session state and account metadata for reliable operations.',
+  },
+];
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden mb-4 transition-all">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-        aria-expanded={isOpen}
-      >
-        <span className="font-semibold text-lg text-slate-900">{question}</span>
-        <ChevronDown
-          className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-blue-600' : ''}`}
-        />
-      </button>
-      <div
-        className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
-      >
-        <div className="overflow-hidden">
-          <div className="p-6 pt-0 text-slate-600 leading-relaxed font-sans">
-            {answer}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function App() {
-  const features = [
-    {
-      icon: <Zap className="w-8 h-8 text-amber-500" />,
-      title: 'Powerful Server Functions',
-      description:
-        'Write server-side code seamlessly alongside client components. Type-safe, secure, and incredibly simple.',
-    },
-    {
-      icon: <Server className="w-8 h-8 text-blue-500" />,
-      title: 'Flexible SSR & Streaming',
-      description:
-        'Full-document SSR, selective streaming, and progressive enhancement. Control what renders, where, and when.',
-    },
-    {
-      icon: <RouteIcon className="w-8 h-8 text-indigo-500" />,
-      title: 'Type-Safe API Routes',
-      description:
-        'Build native API endpoints natively within your React app structure. No secondary backend required.',
-    },
-    {
-      icon: <Shield className="w-8 h-8 text-emerald-500" />,
-      title: 'End-to-End Type Safety',
-      description:
-        'Strong typing extends from database to client UI. Catch breaking changes directly inside your IDE.',
-    },
-    {
-      icon: <Waves className="w-8 h-8 text-blue-500" />,
-      title: 'AI Native Architecture',
-      description:
-        'Stream massive datasets and conversational AI responses progressively to the client with zero jitter.',
-    },
-    {
-      icon: <Sparkles className="w-8 h-8 text-purple-500" />,
-      title: 'Deploy Anywhere',
-      description:
-        'Cloudflare, Vercel, Node.js, or Docker. Built for the modern edge and stateless execution environments.',
-    },
-  ];
+export function HomePage() {
+  const { data: session, isPending } = authClient.useSession();
 
   return (
-    <>
-      <div className="relative overflow-hidden bg-white">
-        {/* Clean Light Background Gradients */}
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-100/60 blur-[100px] pointer-events-none" />
-        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] rounded-full bg-indigo-100/40 blur-[120px] pointer-events-none" />
+    <div className="relative isolate overflow-hidden">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(78rem_32rem_at_30%_-8%,rgba(217,185,121,0.26),transparent_56%),radial-gradient(52rem_28rem_at_85%_6%,rgba(95,141,185,0.22),transparent_58%)]" />
 
-        {/* --- Hero Section --- */}
-        <Section className="relative pt-24 pb-16 md:pt-36 md:pb-28 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium mb-8 shadow-sm">
-            <Sparkles className="w-4 h-4 text-blue-600" />
-            <span>TStack 1.0 is officially here</span>
+      <Section className="pt-16 md:pt-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-600 shadow-sm">
+            <Sparkles className="h-4 w-4 text-amber-600" />
+            Built for better publishing operations
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 max-w-5xl leading-[1.15] mb-8">
-            The Ultimate React Framework for{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
-              Scalable SaaS
-            </span>
+          <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight text-slate-900 md:text-6xl">
+            Elegant posts management for teams that ship content every week.
           </h1>
 
-          <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mb-12 font-sans leading-relaxed">
-            Ship enterprise-grade applications faster with robust server
-            functions, streaming SSR, and unparalleled type-safety. Avoid the
-            waterfall.
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
+            This app keeps the flow simple: authenticate, write posts, and manage
+            your workspace with predictable navigation and polished visuals.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-            <Button
-              size="lg"
-              className="w-full sm:w-auto h-14 px-8 text-base bg-blue-600 text-white hover:bg-blue-700 hover:-translate-y-0.5 font-semibold shadow-[0_0_20px_rgba(37,99,235,0.2)] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all"
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            {isPending ? (
+              <div className="h-10 w-48 animate-pulse rounded-lg bg-slate-200/70" />
+            ) : session ? (
+              <>
+                <Link to="/posts">
+                  <Button className="h-10 px-5 font-semibold">
+                    Open Posts
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/dashboard">
+                  <Button variant="outline" className="h-10 px-5 font-medium">
+                    Open Dashboard
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button className="h-10 px-5 font-semibold">
+                    Sign in to continue
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/login" search={{ tab: 'signup' }}>
+                  <Button variant="outline" className="h-10 px-5 font-medium">
+                    Create account
+                  </Button>
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </Section>
+
+      <Section className="pt-6 md:pt-10">
+        <div className="grid gap-5 md:grid-cols-2">
+          {featureCards.map((feature) => (
+            <Card
+              key={feature.title}
+              className="rounded-2xl border-black/10 bg-white/70 p-6 shadow-[0_18px_48px_-34px_rgba(10,20,32,0.42)] backdrop-blur"
             >
-              Start Building Free
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-auto h-14 px-8 text-base border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold"
-            >
-              <Code2 className="mr-2 w-5 h-5 text-slate-400" />
-              Read Documentation
-            </Button>
-          </div>
-        </Section>
-
-        {/* --- Social Proof --- */}
-        <Section className="py-12 border-y border-slate-100 bg-slate-50/50">
-          <p className="text-center text-sm font-medium text-slate-400 mb-8 uppercase tracking-widest">
-            Trusted by industry-leading engineering teams
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
-            <div className="text-2xl font-black tracking-tighter text-slate-800">
-              Vercel
-            </div>
-            <div className="text-2xl font-black tracking-tighter text-slate-800">
-              Cloudflare
-            </div>
-            <div className="flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-800">
-              <div className="w-6 h-6 bg-slate-800 rounded-md" /> Linear
-            </div>
-          </div>
-        </Section>
-
-        {/* --- Value Proposition Grid --- */}
-        <Section id="features" className="py-24 md:py-32 relative">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-              Everything you need to scale
-            </h2>
-            <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-sans">
-              We abstracted the hard parts of full-stack engineering so you can
-              focus on building features. Built on the proven primitives of
-              TanStack Router.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, idx) => (
-              <Card
-                key={idx}
-                className="bg-white border-slate-200 p-8 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 group rounded-2xl"
-              >
-                <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-600 leading-relaxed font-sans">
-                  {feature.description}
-                </p>
-              </Card>
-            ))}
-          </div>
-        </Section>
-
-        {/* --- Deep Dive / Comparison Section --- */}
-        <Section className="py-24 md:py-32 bg-slate-50 border-y border-slate-200">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="order-2 lg:order-1">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Stop fighting your framework
-              </h2>
-              <p className="text-lg text-slate-600 mb-8 leading-relaxed font-sans">
-                Legacy React architectures introduce extreme complexity with
-                waterfall data requests and disjointed state. TStack unifies
-                your client and server contexts beautifully with total type
-                safety.
-              </p>
-              <ul className="space-y-4">
-                {[
-                  'No more complex state synchronization',
-                  'Eliminate runtime undefined errors',
-                  'Built-in caching and refetching logic',
-                  'Lightning fast sub-50ms SSR rendering',
-                ].map((benefit, i) => (
-                  <li key={i} className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <span className="text-slate-700 font-medium font-sans">
-                      {benefit}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Code Block Visual - Kept Dark for Editor aesthetic */}
-            <div className="order-1 lg:order-2 relative rounded-2xl bg-[#0d1117] border border-slate-800 p-6 shadow-2xl py-8 overflow-hidden group transform rotate-1 hover:rotate-0 transition-transform duration-500">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500" />
-              <div className="flex items-center gap-2 mb-6 border-b border-white/10 pb-4">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                <span className="ml-2 text-xs text-slate-400 font-mono">
-                  server-function.ts
-                </span>
+              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white">
+                {feature.icon}
               </div>
-              <pre className="text-sm font-mono text-slate-300 overflow-x-auto">
-                <code>
-                  <span className="text-purple-400">export const</span> getUser
-                  = <span className="text-blue-400">createServerFn</span>(){' '}
-                  <br />
-                  &nbsp;&nbsp;.<span className="text-blue-400">validator</span>
-                  (z.string()) <br />
-                  &nbsp;&nbsp;.<span className="text-blue-400">handler</span>(
-                  <span className="text-purple-400">async</span> (&#123; data:
-                  userId &#125;) <span className="text-purple-400">=&gt;</span>{' '}
-                  &#123; <br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span className="text-slate-500 italic">
-                    {'// Fully typed server context'}
-                  </span>{' '}
-                  <br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span className="text-purple-400">const</span> user ={' '}
-                  <span className="text-purple-400">await</span> db.user.
-                  <span className="text-blue-400">findUnique</span>(&#123;{' '}
-                  <br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where: &#123; id: userId
-                  &#125; <br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;&#125;); <br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span className="text-purple-400">return</span> user; <br />
-                  &nbsp;&nbsp;&#125;);
-                </code>
-              </pre>
+              <h2 className="font-display text-2xl font-semibold text-slate-900">
+                {feature.title}
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+                {feature.description}
+              </p>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+      <Section className="pt-8 md:pt-12">
+        <div className="rounded-3xl border border-black/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(244,239,230,0.82))] p-8 shadow-[0_20px_60px_-38px_rgba(17,24,39,0.5)] md:p-12">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+            Workflow Standard
+          </p>
+          <h3 className="mt-3 font-display text-3xl font-semibold text-slate-900 md:text-4xl">
+            Keep your post lifecycle understandable.
+          </h3>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="rounded-2xl border border-black/10 bg-white/80 p-5">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                01
+              </p>
+              <h4 className="text-lg font-semibold text-slate-900">Authenticate</h4>
+              <p className="mt-2 text-sm text-slate-600">
+                Sign in or create an account. Header actions adapt immediately
+                to your session state.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-black/10 bg-white/80 p-5">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                02
+              </p>
+              <h4 className="text-lg font-semibold text-slate-900">Write Posts</h4>
+              <p className="mt-2 text-sm text-slate-600">
+                Open the posts area to create content, browse existing posts,
+                and maintain clean editorial flow.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-black/10 bg-white/80 p-5">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                03
+              </p>
+              <h4 className="text-lg font-semibold text-slate-900">Track Session</h4>
+              <p className="mt-2 text-sm text-slate-600">
+                Use the dashboard to verify session details and logout directly
+                when your work is done.
+              </p>
             </div>
           </div>
-        </Section>
 
-        {/* --- FAQ Section --- */}
-        <Section className="py-24 md:py-32 relative max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg md:text-xl text-slate-600 font-sans">
-              Everything you need to know about scaling with our architectural
-              boilerplate.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {faqSchema.mainEntity.map((item, idx) => (
-              <FAQItem
-                key={idx}
-                question={item.name}
-                answer={item.acceptedAnswer.text}
-              />
-            ))}
-          </div>
-        </Section>
-
-        {/* --- Final CTA --- */}
-        <Section className="py-24 text-center">
-          <div className="bg-gradient-to-br from-blue-900 to-indigo-950 rounded-[2.5rem] p-12 md:p-24 relative overflow-hidden shadow-2xl">
-            {/* Geometric accents */}
-            <div className="absolute top-0 right-0 p-32 bg-blue-500/20 blur-[100px] rounded-full" />
-            <div className="absolute bottom-0 left-0 p-32 bg-indigo-500/20 blur-[100px] rounded-full" />
-
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 relative z-10 leading-tight">
-              Ready to modernize your stack?
-            </h2>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-10 relative z-10 font-sans font-light">
-              Join thousands of developers building fast, type-safe, scalable
-              applications with TStack. Focus on logic, not boilerplate.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-              <Button
-                size="lg"
-                className="h-14 px-10 text-base bg-white text-blue-900 hover:bg-slate-100 font-bold shadow-xl shadow-black/20 hover:-translate-y-1 transition-all"
-              >
-                Start Building Free
-              </Button>
-              <span className="text-blue-200/80 text-sm mt-4 sm:mt-0 sm:ml-4 font-sans border border-blue-400/30 bg-blue-900/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                No credit card required.
-              </span>
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1.5 text-xs font-medium text-slate-600">
+              <BookOpenText className="h-4 w-4" />
+              Posts-first experience
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1.5 text-xs font-medium text-slate-600">
+              <LockKeyhole className="h-4 w-4" />
+              Protected route access
             </div>
           </div>
-        </Section>
-      </div>
-    </>
+        </div>
+      </Section>
+    </div>
   );
 }

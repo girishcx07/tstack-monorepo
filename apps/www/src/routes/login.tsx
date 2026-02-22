@@ -3,14 +3,17 @@ import { Input } from '@repo/ui/components/input';
 import { Label } from '@repo/ui/components/label';
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router';
 import { useState } from 'react';
+import * as v from 'valibot';
 import { authClient } from '#/clients/authClient';
 
+const loginSearchSchema = v.object({
+  tab: v.optional(v.picklist(['signin', 'signup'])),
+  redirect: v.optional(v.string()),
+});
+
 export const Route = createFileRoute('/login')({
-  validateSearch: (search: Record<string, unknown>) => {
-    return {
-      tab: (search.tab as 'signin' | 'signup') || 'signin',
-    };
-  },
+  validateSearch: (search: Record<string, unknown>) =>
+    v.parse(loginSearchSchema, search),
   beforeLoad: async ({ context }) => {
     // Redirect already-authenticated users
     if (context.session) {
@@ -23,7 +26,8 @@ export const Route = createFileRoute('/login')({
 type Tab = 'signin' | 'signup';
 
 function LoginPage() {
-  const { tab: initialTab } = Route.useSearch();
+  const { tab: initialTab = 'signin', redirect: redirectUrl } =
+    Route.useSearch();
   const [tab, setTab] = useState<Tab>(initialTab);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -50,6 +54,10 @@ function LoginPage() {
         if (error) throw new Error(error.message ?? 'Sign up failed');
       }
       await router.invalidate();
+      if (redirectUrl && redirectUrl.startsWith('/')) {
+        window.location.assign(redirectUrl);
+        return;
+      }
       router.navigate({ to: '/dashboard' });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');

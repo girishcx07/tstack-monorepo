@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start';
 import { getRequestHeaders } from '@tanstack/react-start/server';
 
-import { auth } from '#/lib/auth';
+import { getAuth } from '#/lib/auth';
 
 /**
  * Get the current session (nullable). Safe to call in any route's beforeLoad.
@@ -9,6 +9,7 @@ import { auth } from '#/lib/auth';
  */
 export const getSession = createServerFn({ method: 'GET' }).handler(
   async () => {
+    const auth = getAuth();
     const headers = getRequestHeaders();
     return await auth.api.getSession({ headers });
   },
@@ -20,6 +21,7 @@ export const getSession = createServerFn({ method: 'GET' }).handler(
  */
 export const ensureSession = createServerFn({ method: 'GET' }).handler(
   async () => {
+    const auth = getAuth();
     const headers = getRequestHeaders();
     const session = await auth.api.getSession({ headers });
     if (!session) {

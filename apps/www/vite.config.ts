@@ -8,9 +8,9 @@ import viteReact from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { nitro } from 'nitro/vite';
 
-// Extract port from PUBLIC_WEB_URL env (e.g. http://localhost:3001 → 3001)
+// Extract port from VITE_PUBLIC_WEB_URL env (e.g. http://localhost:3001 → 3001)
 const wwwPort = Number(
-  process.env.PUBLIC_WEB_URL?.match(/:(\d+)/)?.[1] ?? 3001,
+  process.env.VITE_PUBLIC_WEB_URL?.match(/:(\d+)/)?.[1] ?? 3001,
 );
 
 const config = defineConfig({
