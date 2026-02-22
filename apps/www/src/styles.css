@@ -9,3 +9,32 @@
  * https://github.com/tailwindlabs/tailwindcss/issues/16733
  */
 @source '../../../packages/ui';
+
+:root {
+  --app-bg: #f5f0e7;
+  --app-bg-accent: #fdfcf8;
+  --font-display:
+    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  --font-body:
+    "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(
+      70rem 26rem at 12% -8%,
+      color-mix(in oklab, #d8c39f 25%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      46rem 24rem at 84% 4%,
+      color-mix(in oklab, #a4b9d4 20%, transparent),
+      transparent 64%
+    ),
+    linear-gradient(180deg, var(--app-bg-accent) 0%, var(--app-bg) 100%);
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}

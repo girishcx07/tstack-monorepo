@@ -1,6 +1,13 @@
 import { Button } from '@repo/ui/components/button';
 import { Link, useRouter } from '@tanstack/react-router';
-import { Menu, X, LogOut, LayoutDashboard, User, FileText } from 'lucide-react';
+import {
+  BookText,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  UserCircle2,
+  X,
+} from 'lucide-react';
 import { useState } from 'react';
 import { authClient } from '#/clients/authClient';
 
@@ -9,168 +16,152 @@ export function Header() {
   const { data: session, isPending } = authClient.useSession();
   const router = useRouter();
 
+  const closeMenu = () => setIsOpen(false);
+
   const handleSignOut = async () => {
     await authClient.signOut();
-    setIsOpen(false);
+    closeMenu();
     await router.invalidate();
-    router.navigate({ to: '/login' });
+    router.navigate({ to: '/' });
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-      <div className="container mx-auto px-6 h-14 flex items-center justify-between">
-        {/* Left: Logo & Nav */}
+    <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-[rgba(251,249,246,0.86)] backdrop-blur-xl">
+      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-8">
-          <Link to="/" className="flex items-center gap-2 group">
-            <span className="font-bold text-lg tracking-tight text-foreground">
-              TStack
+          <Link to="/" className="group inline-flex items-center gap-3">
+            <div className="grid h-9 w-9 place-items-center rounded-xl border border-black/10 bg-white/80 shadow-sm">
+              <BookText className="h-4 w-4 text-slate-700" />
+            </div>
+            <span className="font-display text-lg font-semibold tracking-tight text-slate-900">
+              PostCraft
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6">
-            <Link
-              to="/posts"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Posts
-            </Link>
-          </nav>
+          {session && (
+            <nav className="hidden items-center gap-5 md:flex">
+              <Link
+                to="/posts"
+                className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+              >
+                Posts
+              </Link>
+              <Link
+                to="/dashboard"
+                className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+              >
+                Dashboard
+              </Link>
+            </nav>
+          )}
         </div>
 
-        {/* Right: Auth & Mobile Toggle */}
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-3">
+        <div className="hidden items-center gap-2 md:flex">
+          {isPending ? (
+            <div className="h-9 w-40 animate-pulse rounded-lg bg-slate-200/70" />
+          ) : session ? (
+            <>
+              <div className="mr-2 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1.5">
+                <UserCircle2 className="h-4 w-4 text-slate-600" />
+                <span className="max-w-32 truncate text-xs font-medium text-slate-700">
+                  {session.user.name || session.user.email}
+                </span>
+              </div>
+              <Link to="/posts">
+                <Button variant="ghost" className="font-medium">
+                  Posts
+                </Button>
+              </Link>
+              <Link to="/dashboard">
+                <Button variant="ghost" className="font-medium">
+                  Dashboard
+                </Button>
+              </Link>
+              <Button variant="outline" onClick={handleSignOut}>
+                <LogOut className="h-4 w-4" />
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button variant="ghost" className="font-medium">
+                  Sign in
+                </Button>
+              </Link>
+              <Link to="/login" search={{ tab: 'signup' }}>
+                <Button className="px-4 font-semibold">Create account</Button>
+              </Link>
+            </>
+          )}
+        </div>
+
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="rounded-md p-2 text-slate-600 transition-colors hover:text-slate-900 md:hidden"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="border-t border-black/10 bg-[rgba(251,249,246,0.98)] px-6 py-4 md:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2">
             {isPending ? (
-              <div className="h-9 w-24 animate-pulse bg-muted rounded-md" />
+              <div className="h-10 w-full animate-pulse rounded-lg bg-slate-200/70" />
             ) : session ? (
               <>
-                <Link to="/dashboard">
-                  <Button variant="ghost" className="gap-2 font-medium">
+                <div className="mb-2 rounded-xl border border-black/10 bg-white/90 p-3">
+                  <p className="text-sm font-semibold text-slate-900">
+                    {session.user.name || 'Logged in'}
+                  </p>
+                  <p className="text-xs text-slate-600">{session.user.email}</p>
+                </div>
+                <Link to="/posts" onClick={closeMenu}>
+                  <Button
+                    variant="ghost"
+                    className="h-11 w-full justify-start font-medium"
+                  >
+                    Posts
+                  </Button>
+                </Link>
+                <Link to="/dashboard" onClick={closeMenu}>
+                  <Button
+                    variant="ghost"
+                    className="h-11 w-full justify-start font-medium"
+                  >
                     <LayoutDashboard className="h-4 w-4" />
                     Dashboard
                   </Button>
                 </Link>
                 <Button
-                  variant="ghost"
+                  variant="outline"
+                  className="mt-2 h-11 w-full justify-start"
                   onClick={handleSignOut}
-                  title="Sign out"
                 >
                   <LogOut className="h-4 w-4" />
+                  Logout
                 </Button>
               </>
             ) : (
               <>
-                <Link to="/login">
-                  <Button variant="ghost" className="font-medium">
-                    Sign In
+                <Link to="/login" onClick={closeMenu}>
+                  <Button
+                    variant="ghost"
+                    className="h-11 w-full justify-start font-medium"
+                  >
+                    Sign in
                   </Button>
                 </Link>
-                <Link to="/login">
-                  <Button className="font-semibold">Get Started</Button>
+                <Link to="/login" search={{ tab: 'signup' }} onClick={closeMenu}>
+                  <Button className="h-11 w-full justify-start font-semibold">
+                    Create account
+                  </Button>
                 </Link>
               </>
             )}
           </div>
-
-          <button
-            onClick={() => setIsOpen(true)}
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="Open menu"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-md md:hidden px-6 py-4 border-b border-border">
-          <div className="flex items-center justify-between mb-8">
-            <Link
-              to="/"
-              className="flex items-center gap-2"
-              onClick={() => setIsOpen(false)}
-            >
-              <span className="font-bold text-lg text-foreground">TStack</span>
-            </Link>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="p-2 text-muted-foreground hover:text-foreground bg-secondary rounded-full"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-
-          <nav className="flex flex-col gap-2">
-            <Link
-              to="/posts"
-              onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-foreground px-4 py-3 rounded-lg hover:bg-muted"
-            >
-              Posts
-            </Link>
-
-            <div className="h-px bg-border my-4 mx-4" />
-
-            {isPending ? (
-              <div className="h-12 m-4 animate-pulse bg-muted rounded-xl" />
-            ) : session ? (
-              <>
-                <div className="flex items-center gap-4 px-4 py-3 mb-2 rounded-xl bg-muted/50 border border-border">
-                  <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
-                    <User className="h-5 w-5 text-foreground" />
-                  </div>
-                  <div>
-                    <p className="text-foreground font-medium">
-                      {session.user.name}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {session.user.email}
-                    </p>
-                  </div>
-                </div>
-
-                <Link to="/posts" onClick={() => setIsOpen(false)}>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start text-foreground hover:bg-muted h-12"
-                  >
-                    <FileText className="h-5 w-5 mr-3 text-muted-foreground" />{' '}
-                    Posts
-                  </Button>
-                </Link>
-                <Link to="/dashboard" onClick={() => setIsOpen(false)}>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start text-foreground hover:bg-muted h-12"
-                  >
-                    <LayoutDashboard className="h-5 w-5 mr-3 text-muted-foreground" />{' '}
-                    Dashboard
-                  </Button>
-                </Link>
-                <Button
-                  variant="ghost"
-                  onClick={handleSignOut}
-                  className="w-full justify-start text-destructive hover:bg-destructive/10 h-12 mt-2"
-                >
-                  <LogOut className="h-5 w-5 mr-3" /> Sign Out
-                </Button>
-              </>
-            ) : (
-              <div className="flex flex-col gap-3 mt-4 px-2">
-                <Link to="/login" onClick={() => setIsOpen(false)}>
-                  <Button variant="outline" className="w-full h-12">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/login" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full font-semibold h-12">
-                    Get Started
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </nav>
         </div>
       )}
     </header>
