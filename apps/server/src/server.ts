@@ -15,6 +15,7 @@ Hono
 - internal server url: http://${host}:${info.port}
 - external server url: ${env.PUBLIC_SERVER_URL}
 - public web url: ${env.PUBLIC_WEB_URL}
+- public www url: ${env.PUBLIC_WWW_URL}
     `);
   },
 );

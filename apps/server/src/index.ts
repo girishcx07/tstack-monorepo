@@ -45,7 +45,11 @@ app.get('/healthcheck', (c) => {
 app.use(logger());
 
 app.get('/', (c) => {
-  return c.html(generateRootHtml(env.PUBLIC_WEB_URL, env.PUBLIC_SERVER_URL));
+  return c.html(generateRootHtml({
+    webUrl: env.PUBLIC_WEB_URL,
+    wwwUrl: env.PUBLIC_WWW_URL,
+    serverUrl: env.PUBLIC_SERVER_URL,
+  }));
 });
 
 // ========================================================================= //

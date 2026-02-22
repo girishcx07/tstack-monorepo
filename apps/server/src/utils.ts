@@ -1,4 +1,11 @@
-export const generateRootHtml = (webUrl: string, serverUrl: string) => `
+interface GenerateRootHtmlParams {
+  webUrl: string;
+  wwwUrl: string;
+  serverUrl: string;
+}
+
+
+export const generateRootHtml = (params: GenerateRootHtmlParams) => `
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -59,17 +66,22 @@ export const generateRootHtml = (webUrl: string, serverUrl: string) => `
           </a>
         </li>
         <li>
-          <a href="${webUrl}" target="_blank" rel="noreferrer">
+          <a href="${params.webUrl}" target="_blank" rel="noreferrer">
             Web (frontend)
           </a>
         </li>
         <li>
-          <a href="${serverUrl}/api" target="_blank" rel="noreferrer">
+          <a href="${params.wwwUrl}" target="_blank" rel="noreferrer">
+            WWW (frontend)
+          </a>
+        </li>
+        <li>
+          <a href="${params.serverUrl}/api" target="_blank" rel="noreferrer">
             API - OpenAPI Reference (Scalar)
           </a>
         </li>
         <li>
-          <a href="${serverUrl}/api/auth/reference" target="_blank" rel="noreferrer">
+          <a href="${params.serverUrl}/api/auth/reference" target="_blank" rel="noreferrer">
             Auth - OpenAPI Reference (Scalar)
           </a>
         </li>

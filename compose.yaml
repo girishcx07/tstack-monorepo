@@ -5,10 +5,10 @@ services:
       dockerfile: ./apps/web/Dockerfile
       args:
         # Backend API server - used at build time to create the bundle
-        PUBLIC_SERVER_URL: http://localhost:3035
+        PUBLIC_SERVER_URL: http://localhost:3080
         PUBLIC_SERVER_API_PATH: /api
     ports:
-      - 8085:80
+      - 3081:80
     healthcheck:
       interval: 30s
       timeout: 10s
@@ -23,13 +23,13 @@ services:
       context: .
       dockerfile: ./apps/www/Dockerfile
       args:
-        PUBLIC_SERVER_URL: http://localhost:3035
+        PUBLIC_SERVER_URL: http://localhost:3080
         PUBLIC_SERVER_API_PATH: /api
     ports:
-      - 3000:80
+      - 3082:80
     environment:
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-dev_secret_for_better_auth_testing}
-      - BETTER_AUTH_URL=http://localhost:3000
+      - BETTER_AUTH_URL=http://localhost:3082
     healthcheck:
       interval: 30s
       timeout: 10s
@@ -43,14 +43,15 @@ services:
       context: .
       dockerfile: ./apps/server/Dockerfile
     ports:
-      - 3035:3000
+      - 3080:3080
     environment:
       - SERVER_AUTH_SECRET=${SERVER_AUTH_SECRET:-please_change_this_in_production}
       - SERVER_POSTGRES_URL=postgres://postgres:postgres@db:5432/postgres
       - SERVER_HOST=0.0.0.0
-      - SERVER_PORT=3000
-      - PUBLIC_WEB_URL=http://localhost:8085
-      - PUBLIC_SERVER_URL=http://localhost:3035
+      - SERVER_PORT=3080
+      - PUBLIC_WEB_URL=http://localhost:3081
+      - PUBLIC_SERVER_URL=http://localhost:3080
+      - PUBLIC_WWW_URL=http://localhost:3082
     healthcheck:
       interval: 30s
       timeout: 10s
