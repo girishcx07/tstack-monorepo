@@ -42,12 +42,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       {/* 
-        SaaS Aesthetic: Solid minimalist approach. 
-        Background is slightly off-white (blue tinted paper-like effect)
-        Text is dark professional blue (`slate-900` or `blue-950`)
-        We set the font-sans as global font family
+        SaaS Aesthetic: Clean architecture approach
       */}
-      <body className="min-h-screen font-sans bg-blue-50 text-slate-900 antialiased selection:bg-blue-500/30 selection:text-white">
+      <body className="min-h-screen font-sans bg-background text-foreground antialiased selection:bg-black selection:text-white">
         <QueryClientProvider client={queryClient}>
           <div className="flex min-h-screen flex-col">
             <Header />

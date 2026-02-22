@@ -37,9 +37,10 @@
     "dotenv-cli": "catalog:",
     "lucide-react": "catalog:",
     "nitro": "catalog:",
+    "next-themes": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "sonner": "^2.0.7",
+    "sonner": "catalog:",
     "tailwindcss": "catalog:",
     "url-join": "catalog:",
     "valibot": "catalog:"
