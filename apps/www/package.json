@@ -27,6 +27,8 @@
     "@repo/ui": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-devtools": "catalog:",
+    "@tanstack/react-form": "^1.28.3",
+    "@tanstack/react-query": "^5.90.21",
     "@tanstack/react-router": "catalog:",
     "@tanstack/react-router-ssr-query": "catalog:",
     "@tanstack/react-start": "catalog:",
@@ -37,6 +39,7 @@
     "nitro": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "sonner": "^2.0.7",
     "tailwindcss": "catalog:",
     "url-join": "catalog:",
     "valibot": "catalog:"

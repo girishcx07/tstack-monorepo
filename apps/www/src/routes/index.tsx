@@ -24,10 +24,10 @@ const faqSchema = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'What exactly is TanStack Start?',
+      name: 'What exactly is TStack?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'TanStack Start is a full-stack framework powered by TanStack Router for React. It seamlessly combines server capability with top-tier client routing.',
+        text: 'TStack is a full-stack framework powered by TanStack Router for React. It seamlessly combines server capability with top-tier client routing.',
       },
     },
     {
@@ -74,22 +74,22 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-white/10 rounded-xl bg-slate-900/50 backdrop-blur-sm overflow-hidden mb-4 transition-all">
+    <div className="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden mb-4 transition-all">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+        className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         aria-expanded={isOpen}
       >
-        <span className="font-semibold text-lg text-slate-200">{question}</span>
+        <span className="font-semibold text-lg text-slate-900">{question}</span>
         <ChevronDown
-          className={`w-5 h-5 text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-blue-600' : ''}`}
         />
       </button>
       <div
         className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
       >
         <div className="overflow-hidden">
-          <div className="p-6 pt-0 text-slate-400 leading-relaxed">
+          <div className="p-6 pt-0 text-slate-600 leading-relaxed font-sans">
             {answer}
           </div>
         </div>
@@ -101,37 +101,37 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 function App() {
   const features = [
     {
-      icon: <Zap className="w-8 h-8 text-cyan-400" />,
+      icon: <Zap className="w-8 h-8 text-amber-500" />,
       title: 'Powerful Server Functions',
       description:
         'Write server-side code seamlessly alongside client components. Type-safe, secure, and incredibly simple.',
     },
     {
-      icon: <Server className="w-8 h-8 text-blue-400" />,
+      icon: <Server className="w-8 h-8 text-blue-500" />,
       title: 'Flexible SSR & Streaming',
       description:
         'Full-document SSR, selective streaming, and progressive enhancement. Control what renders, where, and when.',
     },
     {
-      icon: <RouteIcon className="w-8 h-8 text-indigo-400" />,
+      icon: <RouteIcon className="w-8 h-8 text-indigo-500" />,
       title: 'Type-Safe API Routes',
       description:
         'Build native API endpoints natively within your React app structure. No secondary backend required.',
     },
     {
-      icon: <Shield className="w-8 h-8 text-cyan-400" />,
+      icon: <Shield className="w-8 h-8 text-emerald-500" />,
       title: 'End-to-End Type Safety',
       description:
         'Strong typing extends from database to client UI. Catch breaking changes directly inside your IDE.',
     },
     {
-      icon: <Waves className="w-8 h-8 text-blue-400" />,
+      icon: <Waves className="w-8 h-8 text-blue-500" />,
       title: 'AI Native Architecture',
       description:
         'Stream massive datasets and conversational AI responses progressively to the client with zero jitter.',
     },
     {
-      icon: <Sparkles className="w-8 h-8 text-indigo-400" />,
+      icon: <Sparkles className="w-8 h-8 text-purple-500" />,
       title: 'Deploy Anywhere',
       description:
         'Cloudflare, Vercel, Node.js, or Docker. Built for the modern edge and stateless execution environments.',
@@ -140,35 +140,35 @@ function App() {
 
   return (
     <>
-      <div className="relative overflow-hidden bg-slate-950">
-        {/* Abstract Background Gradients */}
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/20 blur-[120px] pointer-events-none" />
-        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] rounded-full bg-blue-900/20 blur-[120px] pointer-events-none" />
+      <div className="relative overflow-hidden bg-white">
+        {/* Clean Light Background Gradients */}
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-100/60 blur-[100px] pointer-events-none" />
+        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] rounded-full bg-indigo-100/40 blur-[120px] pointer-events-none" />
 
         {/* --- Hero Section --- */}
-        <Section className="relative pt-24 pb-16 md:pt-32 md:pb-24 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium mb-8">
-            <Sparkles className="w-4 h-4" />
-            <span>TanStack Start 1.0 is here</span>
+        <Section className="relative pt-24 pb-16 md:pt-36 md:pb-28 flex flex-col items-center text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium mb-8 shadow-sm">
+            <Sparkles className="w-4 h-4 text-blue-600" />
+            <span>TStack 1.0 is officially here</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white max-w-5xl leading-[1.1] mb-8">
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 max-w-5xl leading-[1.15] mb-8">
             The Ultimate React Framework for{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
               Scalable SaaS
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mb-12 font-light leading-relaxed">
+          <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mb-12 font-sans leading-relaxed">
             Ship enterprise-grade applications faster with robust server
-            functions, streaming SSR, and unparalleled type-safety. No
-            compromises.
+            functions, streaming SSR, and unparalleled type-safety. Avoid the
+            waterfall.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <Button
               size="lg"
-              className="w-full sm:w-auto h-14 px-8 text-base bg-white text-slate-950 hover:bg-slate-200 font-semibold shadow-xl shadow-cyan-500/10"
+              className="w-full sm:w-auto h-14 px-8 text-base bg-blue-600 text-white hover:bg-blue-700 hover:-translate-y-0.5 font-semibold shadow-[0_0_20px_rgba(37,99,235,0.2)] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all"
             >
               Start Building Free
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -176,53 +176,58 @@ function App() {
             <Button
               size="lg"
               variant="outline"
-              className="w-full sm:w-auto h-14 px-8 text-base border-white/20 text-white hover:bg-white/5 font-semibold"
+              className="w-full sm:w-auto h-14 px-8 text-base border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold"
             >
-              <Code2 className="mr-2 w-5 h-5" />
+              <Code2 className="mr-2 w-5 h-5 text-slate-400" />
               Read Documentation
             </Button>
           </div>
         </Section>
 
         {/* --- Social Proof --- */}
-        <Section className="py-12 border-y border-white/5 bg-slate-900/30">
-          <p className="text-center text-sm font-medium text-slate-500 mb-8 uppercase tracking-widest">
-            Trusted by industry leaders
+        <Section className="py-12 border-y border-slate-100 bg-slate-50/50">
+          <p className="text-center text-sm font-medium text-slate-400 mb-8 uppercase tracking-widest">
+            Trusted by industry-leading engineering teams
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale">
-            <div className="text-xl font-bold font-sans">Vercel</div>
-            <div className="text-xl font-bold font-sans">Cloudflare</div>
-            <div className="text-xl font-bold font-sans">Stripe</div>
-            <div className="text-xl font-bold font-sans">Linear</div>
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
+            <div className="text-2xl font-black tracking-tighter text-slate-800">
+              Vercel
+            </div>
+            <div className="text-2xl font-black tracking-tighter text-slate-800">
+              Cloudflare
+            </div>
+            <div className="flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-800">
+              <div className="w-6 h-6 bg-slate-800 rounded-md" /> Linear
+            </div>
           </div>
         </Section>
 
         {/* --- Value Proposition Grid --- */}
-        <Section id="features" className="py-24 relative">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+        <Section id="features" className="py-24 md:py-32 relative">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
               Everything you need to scale
             </h2>
-            <p className="text-lg text-slate-400 leading-relaxed">
+            <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-sans">
               We abstracted the hard parts of full-stack engineering so you can
               focus on building features. Built on the proven primitives of
               TanStack Router.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, idx) => (
               <Card
                 key={idx}
-                className="bg-slate-900/50 border-white/10 p-8 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300 group"
+                className="bg-white border-slate-200 p-8 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 group rounded-2xl"
               >
-                <div className="w-16 h-16 rounded-2xl bg-slate-800/80 flex items-center justify-center mb-6 border border-white/5 group-hover:border-cyan-500/30 transition-colors">
+                <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-slate-200 mb-3">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-slate-400 leading-relaxed">
+                <p className="text-slate-600 leading-relaxed font-sans">
                   {feature.description}
                 </p>
               </Card>
@@ -231,27 +236,30 @@ function App() {
         </Section>
 
         {/* --- Deep Dive / Comparison Section --- */}
-        <Section className="py-24 bg-slate-900/30 border-y border-white/5">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+        <Section className="py-24 md:py-32 bg-slate-50 border-y border-slate-200">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
                 Stop fighting your framework
               </h2>
-              <p className="text-lg text-slate-400 mb-8 leading-relaxed">
+              <p className="text-lg text-slate-600 mb-8 leading-relaxed font-sans">
                 Legacy React architectures introduce extreme complexity with
                 waterfall data requests and disjointed state. TStack unifies
-                your client and server contexts beautifully.
+                your client and server contexts beautifully with total type
+                safety.
               </p>
               <ul className="space-y-4">
                 {[
                   'No more complex state synchronization',
                   'Eliminate runtime undefined errors',
-                  'Built-in caching and refetching',
+                  'Built-in caching and refetching logic',
                   'Lightning fast sub-50ms SSR rendering',
                 ].map((benefit, i) => (
                   <li key={i} className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                    <span className="text-slate-300 font-medium">
+                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                      <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <span className="text-slate-700 font-medium font-sans">
                       {benefit}
                     </span>
                   </li>
@@ -259,14 +267,14 @@ function App() {
               </ul>
             </div>
 
-            {/* Fake Code Block Visual */}
-            <div className="relative rounded-2xl bg-slate-950 border border-slate-800 p-6 shadow-2xl overflow-hidden group">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500" />
-              <div className="flex items-center gap-2 mb-6">
+            {/* Code Block Visual - Kept Dark for Editor aesthetic */}
+            <div className="order-1 lg:order-2 relative rounded-2xl bg-[#0d1117] border border-slate-800 p-6 shadow-2xl py-8 overflow-hidden group transform rotate-1 hover:rotate-0 transition-transform duration-500">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500" />
+              <div className="flex items-center gap-2 mb-6 border-b border-white/10 pb-4">
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                <span className="ml-2 text-xs text-slate-500 font-mono">
+                <span className="ml-2 text-xs text-slate-400 font-mono">
                   server-function.ts
                 </span>
               </div>
@@ -282,7 +290,7 @@ function App() {
                   userId &#125;) <span className="text-purple-400">=&gt;</span>{' '}
                   &#123; <br />
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span className="text-slate-500">
+                  <span className="text-slate-500 italic">
                     {'// Fully typed server context'}
                   </span>{' '}
                   <br />
@@ -304,12 +312,12 @@ function App() {
         </Section>
 
         {/* --- FAQ Section --- */}
-        <Section className="py-24 relative max-w-4xl mx-auto">
+        <Section className="py-24 md:py-32 relative max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-slate-400">
+            <p className="text-lg md:text-xl text-slate-600 font-sans">
               Everything you need to know about scaling with our architectural
               boilerplate.
             </p>
@@ -328,24 +336,26 @@ function App() {
 
         {/* --- Final CTA --- */}
         <Section className="py-24 text-center">
-          <div className="bg-gradient-to-br from-cyan-900/40 to-blue-900/40 border border-cyan-500/20 rounded-3xl p-12 md:p-20 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-32 bg-cyan-500/10 blur-[100px] rounded-full" />
+          <div className="bg-gradient-to-br from-blue-900 to-indigo-950 rounded-[2.5rem] p-12 md:p-24 relative overflow-hidden shadow-2xl">
+            {/* Geometric accents */}
+            <div className="absolute top-0 right-0 p-32 bg-blue-500/20 blur-[100px] rounded-full" />
+            <div className="absolute bottom-0 left-0 p-32 bg-indigo-500/20 blur-[100px] rounded-full" />
 
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6 relative z-10">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 relative z-10 leading-tight">
               Ready to modernize your stack?
             </h2>
-            <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-10 relative z-10 font-light">
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-10 relative z-10 font-sans font-light">
               Join thousands of developers building fast, type-safe, scalable
-              applications with TanStack Start.
+              applications with TStack. Focus on logic, not boilerplate.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
               <Button
                 size="lg"
-                className="h-14 px-10 text-base bg-cyan-500 hover:bg-cyan-400 text-white font-bold shadow-lg shadow-cyan-500/25"
+                className="h-14 px-10 text-base bg-white text-blue-900 hover:bg-slate-100 font-bold shadow-xl shadow-black/20 hover:-translate-y-1 transition-all"
               >
                 Start Building Free
               </Button>
-              <span className="text-slate-400 text-sm mt-4 sm:mt-0 sm:ml-4">
+              <span className="text-blue-200/80 text-sm mt-4 sm:mt-0 sm:ml-4 font-sans border border-blue-400/30 bg-blue-900/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
                 No credit card required.
               </span>
             </div>

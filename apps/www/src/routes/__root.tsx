@@ -1,8 +1,10 @@
 import { TanStackDevtools } from '@tanstack/react-devtools';
+import { QueryClientProvider } from '@tanstack/react-query';
 import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  useRouter,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/router-devtools';
 
@@ -19,22 +21,11 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
     return {
       meta: [
-        {
-          charSet: 'utf-8',
-        },
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1',
-        },
+        { charSet: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         ...defaultSeo.meta,
       ],
-      links: [
-        {
-          rel: 'stylesheet',
-          href: appCss,
-        },
-        ...defaultSeo.links,
-      ],
+      links: [{ rel: 'stylesheet', href: appCss }, ...defaultSeo.links],
       scripts: [...defaultSeo.scripts],
     };
   },
@@ -42,28 +33,37 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const queryClient = router.options.context.queryClient;
+
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="scroll-smooth">
       <head>
         <HeadContent />
       </head>
-      <body className="min-h-screen bg-slate-950 text-slate-50 antialiased selection:bg-cyan-500/30">
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
+      {/* 
+        SaaS Aesthetic: Solid minimalist approach. 
+        Background is slightly off-white (blue tinted paper-like effect)
+        Text is dark professional blue (`slate-900` or `blue-950`)
+        We set the font-sans as global font family
+      */}
+      <body className="min-h-screen font-sans bg-blue-50 text-slate-900 antialiased selection:bg-blue-500/30 selection:text-white">
+        <QueryClientProvider client={queryClient}>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1 flex flex-col">{children}</main>
+            <Footer />
+          </div>
+          <TanStackDevtools
+            config={{ position: 'bottom-right' }}
+            plugins={[
+              {
+                name: 'Tanstack Router',
+                render: <TanStackRouterDevtoolsPanel />,
+              },
+            ]}
+          />
+        </QueryClientProvider>
         <Scripts />
       </body>
     </html>
