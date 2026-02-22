@@ -10,7 +10,7 @@ import { nitro } from 'nitro/vite';
 
 // Extract port from VITE_PUBLIC_WEB_URL env (e.g. http://localhost:3001 → 3001)
 const wwwPort = Number(
-  process.env.VITE_PUBLIC_WEB_URL?.match(/:(\d+)/)?.[1] ?? 3002,
+  process.env.VITE_PUBLIC_WEB_URL?.match(/:(\d+)/)?.[1] ?? 3082,
 );
 
 const config = defineConfig({
