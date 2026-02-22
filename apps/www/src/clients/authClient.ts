@@ -8,7 +8,7 @@ export const authClient = createRepoAuthClient({
   apiBaseUrl:
     typeof window !== 'undefined'
       ? window.location.origin
-      : (process.env.VITE_PUBLIC_WEB_URL as string),
+      : process.env.VITE_PUBLIC_WEB_URL || 'http://localhost:3002',
   apiBasePath: '/api',
 });
 

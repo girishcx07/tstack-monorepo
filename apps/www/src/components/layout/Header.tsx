@@ -19,10 +19,16 @@ export function Header() {
   const closeMenu = () => setIsOpen(false);
 
   const handleSignOut = async () => {
-    await authClient.signOut();
-    closeMenu();
-    await router.invalidate();
-    router.navigate({ to: '/' });
+    console.log('[Header] Sign out clicked');
+    try {
+      await authClient.signOut();
+      console.log('[Header] Sign out success');
+      closeMenu();
+      await router.invalidate();
+      await router.navigate({ to: '/login' });
+    } catch (error) {
+      console.error('[Header] Sign out failed:', error);
+    }
   };
 
   return (
@@ -154,7 +160,11 @@ export function Header() {
                     Sign in
                   </Button>
                 </Link>
-                <Link to="/login" search={{ tab: 'signup' }} onClick={closeMenu}>
+                <Link
+                  to="/login"
+                  search={{ tab: 'signup' }}
+                  onClick={closeMenu}
+                >
                   <Button className="h-11 w-full justify-start font-semibold">
                     Create account
                   </Button>

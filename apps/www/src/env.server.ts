@@ -16,6 +16,7 @@ export const serverEnvSchema = v.object({
   DB_POSTGRES_URL: v.pipe(v.string(), v.minLength(1)),
   SERVER_AUTH_SECRET: v.pipe(v.string(), v.minLength(32)),
   VITE_PUBLIC_WEB_URL: v.pipe(v.string(), v.url()),
+  VITE_PUBLIC_SERVER_URL: v.pipe(v.string(), v.url()),
 });
 
 export type ServerEnv = v.InferOutput<typeof serverEnvSchema>;

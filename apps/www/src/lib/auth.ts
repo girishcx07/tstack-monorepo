@@ -24,10 +24,17 @@ export function getAuth(): AuthInstance {
   }
 
   const env = getServerEnv();
+  console.log(
+    '[getAuth] Creating auth instance with DB:',
+    env.DB_POSTGRES_URL.split('@')[1],
+  );
   const db = createDb({ databaseUrl: env.DB_POSTGRES_URL });
 
   cachedAuth = createAuth({
-    trustedOrigins: [new URL(env.VITE_PUBLIC_WEB_URL).origin],
+    trustedOrigins: [
+      new URL(env.VITE_PUBLIC_WEB_URL).origin,
+      new URL(env.VITE_PUBLIC_SERVER_URL).origin,
+    ],
     serverUrl: env.VITE_PUBLIC_WEB_URL,
     apiPath: '/api',
     authSecret: env.SERVER_AUTH_SECRET,
