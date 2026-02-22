@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { cn } from '@repo/ui/lib/utils';
+import * as React from 'react';
 
 export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   container?: boolean;

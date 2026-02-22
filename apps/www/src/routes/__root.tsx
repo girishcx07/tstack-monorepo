@@ -1,15 +1,15 @@
+import { TanStackDevtools } from '@tanstack/react-devtools';
 import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/router-devtools';
-import { TanStackDevtools } from '@tanstack/react-devtools';
 
-import { Header } from '../components/layout/Header';
-import { Footer } from '../components/layout/Footer';
-import { getSeoMeta } from '../lib/seo';
 import type { RouterContext } from '../router';
+import { Footer } from '../components/layout/Footer';
+import { Header } from '../components/layout/Header';
+import { getSeoMeta } from '../lib/seo';
 
 import appCss from '../styles.css?url';
 

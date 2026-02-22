@@ -1,8 +1,8 @@
-import { Link, useRouter } from '@tanstack/react-router';
-import { useState } from 'react';
-import { Menu, X, LogOut, LayoutDashboard, User } from 'lucide-react';
-import { authClient } from '#/clients/authClient';
 import { Button } from '@repo/ui/components/button';
+import { Link, useRouter } from '@tanstack/react-router';
+import { Menu, X, LogOut, LayoutDashboard, User } from 'lucide-react';
+import { useState } from 'react';
+import { authClient } from '#/clients/authClient';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);

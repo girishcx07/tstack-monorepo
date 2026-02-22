@@ -1,6 +1,6 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router';
-import { authClient } from '#/clients/authClient';
 import { LogOut, User, ShieldCheck, Zap, Globe } from 'lucide-react';
+import { authClient } from '#/clients/authClient';
 
 export const Route = createFileRoute('/_protected/dashboard')({
   component: DashboardPage,

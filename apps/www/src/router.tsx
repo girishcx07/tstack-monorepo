@@ -1,6 +1,6 @@
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
+import type { getSession } from './lib/session';
 import { routeTree } from './routeTree.gen';
-import { getSession } from './lib/session';
 // import { getSession } from '#/lib/auth.server';
 
 export interface RouterContext {

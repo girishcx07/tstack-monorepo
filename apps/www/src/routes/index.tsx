@@ -1,3 +1,5 @@
+import { Button } from '@repo/ui/components/button';
+import { Card } from '@repo/ui/components/card';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   Zap,
@@ -12,8 +14,6 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '@repo/ui/components/button';
-import { Card } from '@repo/ui/components/card';
 import { Section } from '../components/layout/Section';
 import { getSeoMeta } from '../lib/seo';
 
@@ -283,7 +283,7 @@ function App() {
                   &#123; <br />
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <span className="text-slate-500">
-                    // Fully typed server context
+                    {'// Fully typed server context'}
                   </span>{' '}
                   <br />
                   &nbsp;&nbsp;&nbsp;&nbsp;
