@@ -33,8 +33,7 @@ export const envSchema = v.object({
 
   // Frontend URL(s), used to configure trusted origins (CORS)
   PUBLIC_WEB_URL: v.pipe(v.string(), v.url()),
-  // Optional: include the www SSR app as a trusted CORS origin
-  PUBLIC_WWW_URL: v.optional(v.pipe(v.string(), v.url())),
+  PUBLIC_WWW_URL: v.pipe(v.string(), v.url()),
 });
 
 export const env = v.parse(envSchema, process.env);

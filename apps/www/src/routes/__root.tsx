@@ -16,10 +16,31 @@ import { getSession } from '../lib/session';
 
 import appCss from '../styles.css?url';
 
+/**
+ * Root route with server-side session loading.
+ *
+ * The session is loaded on the server in beforeLoad and attached to the router context.
+ * This ensures:
+ * - Session is validated server-side on every request
+ * - Authentication state is available to all child routes
+ * - Navigation guards can check session validity
+ *
+ * Best practices:
+ * - Session is loaded once at the root level (not repeated in child routes)
+ * - Errors in session loading are handled gracefully (null session)
+ * - Child routes can override with their own validation if needed
+ */
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async () => {
-    const session = await getSession();
-    return { session };
+    try {
+      const session = await getSession();
+      return { session };
+    } catch (error) {
+      console.error('[__root] Error loading session:', error);
+      // Return null session on any error
+      // This allows the app to render but protected routes will redirect to login
+      return { session: null };
+    }
   },
   head: () => {
     const defaultSeo = getSeoMeta();

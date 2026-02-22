@@ -13,6 +13,13 @@ import { getServerEnv } from '#/env.server';
  * it is a TanStack Start–specific plugin that belongs at the app layer.
  *
  * IMPORTANT: `tanstackStartCookies` must always be the LAST plugin in the array.
+ *
+ * Security features:
+ * - Cookie cache enabled for performance (5min TTL)
+ * - Session validation on every request via Better Auth middleware
+ * - CSRF protection via secure cookie flags
+ * - Email verification can be enabled by setting requireEmailVerification: true
+ * - Rate limiting should be added at the reverse proxy level
  */
 type AuthInstance = ReturnType<typeof createAuth>;
 
@@ -22,8 +29,8 @@ export function getAuth(): AuthInstance {
   if (cachedAuth) {
     return cachedAuth;
   }
-
   const env = getServerEnv();
+
   console.log(
     '[getAuth] Creating auth instance with DB:',
     env.DB_POSTGRES_URL.split('@')[1],
@@ -32,10 +39,10 @@ export function getAuth(): AuthInstance {
 
   cachedAuth = createAuth({
     trustedOrigins: [
-      new URL(env.VITE_PUBLIC_WEB_URL).origin,
-      new URL(env.VITE_PUBLIC_SERVER_URL).origin,
+      new URL(env.PUBLIC_WEB_URL).origin,
+      new URL(env.PUBLIC_SERVER_URL).origin,
     ],
-    serverUrl: env.VITE_PUBLIC_WEB_URL,
+    serverUrl: env.PUBLIC_WEB_URL,
     apiPath: '/api',
     authSecret: env.SERVER_AUTH_SECRET,
     db,

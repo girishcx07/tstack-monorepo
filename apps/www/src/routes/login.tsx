@@ -42,25 +42,47 @@ function LoginPage() {
     setLoading(true);
 
     try {
+      console.log(`[login] Starting ${tab} with email: ${email}`);
+
       if (tab === 'signin') {
+        console.log('[login] Calling authClient.signIn.email...');
         const { error } = await authClient.signIn.email({ email, password });
-        if (error) throw new Error(error.message ?? 'Sign in failed');
+        if (error) {
+          console.error('[login] Sign in error:', error);
+          throw new Error(error.message ?? 'Sign in failed');
+        }
+        console.log('[login] Sign in successful');
       } else {
+        console.log('[login] Calling authClient.signUp.email...');
         const { error } = await authClient.signUp.email({
           name,
           email,
           password,
         });
-        if (error) throw new Error(error.message ?? 'Sign up failed');
+        if (error) {
+          console.error('[login] Sign up error:', error);
+          throw new Error(error.message ?? 'Sign up failed');
+        }
+        console.log('[login] Sign up successful');
       }
+
+      console.log('[login] Invalidating router to refresh session...');
       await router.invalidate();
+
+      console.log('[login] Checking if redirect URL exists:', redirectUrl);
       if (redirectUrl && redirectUrl.startsWith('/')) {
+        console.log('[login] Redirecting to:', redirectUrl);
         window.location.assign(redirectUrl);
         return;
       }
+
+      console.log('[login] Navigating to dashboard');
       router.navigate({ to: '/dashboard' });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      const errorMessage =
+        err instanceof Error ? err.message : 'Something went wrong';
+      console.error('[login] Error:', errorMessage);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

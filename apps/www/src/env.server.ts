@@ -1,6 +1,6 @@
 import * as v from 'valibot';
 
-const DEFAULT_WWW_PORT = 3001;
+const DEFAULT_WWW_PORT = parseInt(process.env.PORT ?? '', 10) || 3082;
 
 const createPortSchema = ({ defaultPort }: { defaultPort: number }) =>
   v.pipe(
@@ -12,11 +12,11 @@ const createPortSchema = ({ defaultPort }: { defaultPort: number }) =>
   );
 
 export const serverEnvSchema = v.object({
-  WWW_PORT: createPortSchema({ defaultPort: DEFAULT_WWW_PORT }),
+  PORT: createPortSchema({ defaultPort: DEFAULT_WWW_PORT }),
   DB_POSTGRES_URL: v.pipe(v.string(), v.minLength(1)),
   SERVER_AUTH_SECRET: v.pipe(v.string(), v.minLength(32)),
-  VITE_PUBLIC_WEB_URL: v.pipe(v.string(), v.url()),
-  VITE_PUBLIC_SERVER_URL: v.pipe(v.string(), v.url()),
+  PUBLIC_WEB_URL: v.pipe(v.string(), v.url()),
+  PUBLIC_SERVER_URL: v.pipe(v.string(), v.url()),
 });
 
 export type ServerEnv = v.InferOutput<typeof serverEnvSchema>;
