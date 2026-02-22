@@ -8,7 +8,7 @@
   "scripts": {
     "build": "pnpm env:run build",
     "clean": "git clean -xdf .cache .output .turbo node_modules",
-    "dev": "pnpm env:run dev --port 3001",
+    "dev": "pnpm env:run dev",
     "env:copy-example": "shx -- cp -n .env.example .env",
     "env:remove": "shx -- rm -f .env",
     "env:run": "dotenv -- vite",
