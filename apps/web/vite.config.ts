@@ -23,11 +23,8 @@ const envSchema = v.object({
    * will resemble a URL such as: http://localhost:3035.
    * This will then be used to set the vite dev server's host and port.
    */
-  PUBLIC_WEB_URL: v.pipe(
-    v.string(),
-    v.url(),
-  ),
-  PORT: v.number(),
+  PUBLIC_WEB_URL: v.pipe(v.string(), v.url()),
+  PORT: v.optional(v.unknown()),
 
   /**
    * Set this if you want to run or deploy your app at a base URL. This is

@@ -1,11 +1,12 @@
 import { authClient } from '#/lib/auth-client';
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router';
 import { LogOut, User, ShieldCheck, Zap, Globe } from 'lucide-react';
+import { getSession } from '#/server/functions/auth';
 
 export const Route = createFileRoute('/dashboard/')({
   beforeLoad: async () => {
-    const { data: session } = await authClient.getSession();
-    if (!session?.user) {
+    const session = await getSession();
+    if (!session) {
       throw redirect({ to: '/login' });
     }
     return { session };
