@@ -4,7 +4,7 @@ import { Label } from '@repo/ui/components/label';
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router';
 import { useState } from 'react';
 import * as v from 'valibot';
-import { authClient } from '#/clients/authClient';
+import { authClient } from '#/lib/auth-client';
 
 const loginSearchSchema = v.object({
   tab: v.optional(v.picklist(['signin', 'signup'])),

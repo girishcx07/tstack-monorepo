@@ -9,11 +9,10 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArrowLeft, RefreshCw, User, Calendar, FileText } from 'lucide-react';
 import { postsLinkOptions } from '../-validations/posts-link-options';
 import { apiClient } from '#/clients/apiClient';
-import { queryClient } from '#/clients/queryClient';
 
 export const Route = createFileRoute('/_protected/posts/$postid/')({
-  loader: ({ params }) =>
-    queryClient.ensureQueryData(
+  loader: ({ params, context }) =>
+    context.queryClient.ensureQueryData(
       apiClient.posts.one.queryOptions({ input: { id: params.postid } }),
     ),
   component: RouteComponent,

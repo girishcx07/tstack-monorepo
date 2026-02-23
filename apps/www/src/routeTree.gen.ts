@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoBetterAuthRouteImport } from './routes/demo/better-auth'
@@ -22,10 +21,6 @@ import { Route as ProtectedPostsPostidIndexRouteImport } from './routes/_protect
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProtectedRoute = ProtectedRouteImport.update({
-  id: '/_protected',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -88,7 +83,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_protected': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
   '/_protected/dashboard': typeof ProtectedDashboardRoute
   '/demo/better-auth': typeof DemoBetterAuthRoute
@@ -121,7 +115,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/_protected'
     | '/login'
     | '/_protected/dashboard'
     | '/demo/better-auth'
@@ -133,7 +126,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ProtectedRoute: typeof ProtectedRouteWithChildren
   LoginRoute: typeof LoginRoute
   DemoBetterAuthRoute: typeof DemoBetterAuthRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
@@ -147,13 +139,6 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_protected': {
-      id: '/_protected'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof ProtectedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -208,25 +193,8 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface ProtectedRouteChildren {
-  ProtectedDashboardRoute: typeof ProtectedDashboardRoute
-  ProtectedPostsIndexRoute: typeof ProtectedPostsIndexRoute
-  ProtectedPostsPostidIndexRoute: typeof ProtectedPostsPostidIndexRoute
-}
-
-const ProtectedRouteChildren: ProtectedRouteChildren = {
-  ProtectedDashboardRoute: ProtectedDashboardRoute,
-  ProtectedPostsIndexRoute: ProtectedPostsIndexRoute,
-  ProtectedPostsPostidIndexRoute: ProtectedPostsPostidIndexRoute,
-}
-
-const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
-  ProtectedRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ProtectedRoute: ProtectedRouteWithChildren,
   LoginRoute: LoginRoute,
   DemoBetterAuthRoute: DemoBetterAuthRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,

@@ -1,6 +1,6 @@
+import { authClient } from '#/lib/auth-client';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { LogOut, User, ShieldCheck, Zap, Globe } from 'lucide-react';
-import { authClient } from '#/clients/authClient';
 
 export const Route = createFileRoute('/_protected/dashboard')({
   component: DashboardPage,
@@ -47,9 +47,11 @@ function DashboardPage() {
               Dashboard
             </p>
             <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
-              Hello, {session.user.name || 'there'} 👋
+              Hello, {session?.user?.name || 'there'} 👋
             </h1>
-            <p className="text-slate-500 mt-2 text-sm">{session.user.email}</p>
+            <p className="text-slate-500 mt-2 text-sm">
+              {session?.user?.email}
+            </p>
           </div>
           <button
             onClick={handleSignOut}
@@ -67,10 +69,10 @@ function DashboardPage() {
           </div>
           <div>
             <h2 className="text-slate-900 font-bold text-xl">
-              {session.user.name || 'User'}
+              {session?.user?.name || 'User'}
             </h2>
             <p className="text-slate-500 text-sm mt-0.5">
-              {session.user.email}
+              {session?.user?.email}
             </p>
             <div className="mt-3 flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" />
@@ -108,11 +110,11 @@ function DashboardPage() {
           </h3>
           <div className="space-y-4">
             {[
-              { key: 'User ID', value: session.user.id },
-              { key: 'Session ID', value: session.session.id },
+              { key: 'User ID', value: session?.user?.id },
+              { key: 'Session ID', value: session?.session?.id },
               {
                 key: 'Expires',
-                value: new Date(session.session.expiresAt).toLocaleString(),
+                value: new Date(session?.session?.expiresAt).toLocaleString(),
               },
             ].map(({ key, value }) => (
               <div

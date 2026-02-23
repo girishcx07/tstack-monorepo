@@ -30,10 +30,10 @@ import {
   type PostSearchSchema,
 } from './-validations/posts-link-options';
 import { apiClient } from '#/clients/apiClient';
-import { queryClient } from '#/clients/queryClient';
 
 export const Route = createFileRoute('/_protected/posts/')({
-  loader: () => queryClient.ensureQueryData(apiClient.posts.all.queryOptions()),
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(apiClient.posts.all.queryOptions()),
   component: RouteComponent,
   validateSearch: (input: SearchSchemaInput) =>
     v.parse(postsSearchSchema, input),
