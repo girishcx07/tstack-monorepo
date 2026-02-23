@@ -31,6 +31,14 @@ export const Route = createRootRouteWithContext<RootContext>()({
       scripts: [...defaultSeo.scripts],
     };
   },
+  notFoundComponent: () => {
+    return (
+      <div className="flex flex-col items-center justify-center p-12 text-slate-500 min-h-screen">
+        <h1 className="text-4xl font-bold text-slate-900 mb-4">404</h1>
+        <p className="text-lg">Page Not Found</p>
+      </div>
+    );
+  },
   shellComponent: RootDocument,
 });
 

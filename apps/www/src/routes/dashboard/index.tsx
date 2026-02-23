@@ -1,8 +1,15 @@
 import { authClient } from '#/lib/auth-client';
-import { createFileRoute, useRouter } from '@tanstack/react-router';
+import { createFileRoute, redirect, useRouter } from '@tanstack/react-router';
 import { LogOut, User, ShieldCheck, Zap, Globe } from 'lucide-react';
 
-export const Route = createFileRoute('/_protected/dashboard')({
+export const Route = createFileRoute('/dashboard/')({
+  beforeLoad: async () => {
+    const { data: session } = await authClient.getSession();
+    if (!session?.user) {
+      throw redirect({ to: '/login' });
+    }
+    return { session };
+  },
   component: DashboardPage,
 });
 
@@ -114,7 +121,9 @@ function DashboardPage() {
               { key: 'Session ID', value: session?.session?.id },
               {
                 key: 'Expires',
-                value: new Date(session?.session?.expiresAt).toLocaleString(),
+                value: new Date(
+                  session?.session?.expiresAt || '',
+                ).toLocaleString(),
               },
             ].map(({ key, value }) => (
               <div

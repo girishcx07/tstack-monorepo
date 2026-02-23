@@ -9,7 +9,7 @@ import {
   X,
 } from 'lucide-react';
 import { useState } from 'react';
-import { authClient } from '#/clients/authClient';
+import { authClient } from '#/lib/auth-client';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);

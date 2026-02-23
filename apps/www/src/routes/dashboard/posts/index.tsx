@@ -31,7 +31,7 @@ import {
 } from './-validations/posts-link-options';
 import { apiClient } from '#/clients/apiClient';
 
-export const Route = createFileRoute('/_protected/posts/')({
+export const Route = createFileRoute('/dashboard/posts/')({
   loader: ({ context }) =>
     context.queryClient.ensureQueryData(apiClient.posts.all.queryOptions()),
   component: RouteComponent,
@@ -62,7 +62,7 @@ function PostItem({
 }>) {
   return (
     <Link
-      to="/posts/$postid"
+      to="/dashboard/posts/$postid"
       params={{ postid: post.id }}
       className="bg-card border border-border p-6 w-full flex items-center justify-between gap-4 rounded-xl hover:shadow-md transition-all shadow-sm group"
       disabled={disabled}

@@ -10,7 +10,7 @@ import { ArrowLeft, RefreshCw, User, Calendar, FileText } from 'lucide-react';
 import { postsLinkOptions } from '../-validations/posts-link-options';
 import { apiClient } from '#/clients/apiClient';
 
-export const Route = createFileRoute('/_protected/posts/$postid/')({
+export const Route = createFileRoute('/dashboard/posts/$postid/')({
   loader: ({ params, context }) =>
     context.queryClient.ensureQueryData(
       apiClient.posts.one.queryOptions({ input: { id: params.postid } }),
