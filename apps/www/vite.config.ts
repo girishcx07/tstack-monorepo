@@ -13,10 +13,7 @@ const envSchema = v.object({
    * will resemble a URL such as: http://localhost:3035.
    * This will then be used to set the vite dev server's host and port.
    */
-  PUBLIC_WEB_URL: v.pipe(
-    v.string(),
-    v.url(),
-  ),
+  PUBLIC_WEB_URL: v.pipe(v.string(), v.url()),
   PORT: v.string(),
 
   /**
@@ -43,7 +40,11 @@ const config = defineConfig({
     tsconfigPaths({ projects: ['./tsconfig.json'] }),
     tailwindcss(),
     tanstackStart(),
-    viteReact(),
+    viteReact({
+      babel: {
+        plugins: ['babel-plugin-react-compiler'],
+      },
+    }),
   ],
 });
 

@@ -11,7 +11,7 @@ import {
   Workflow,
 } from 'lucide-react';
 import { Section } from '../components/layout/Section';
-import { authClient } from '#/clients/authClient';
+import { authClient } from '#/lib/auth-client';
 import { getSeoMeta } from '../lib/seo';
 
 const faqSchema = {
@@ -109,8 +109,9 @@ export function HomePage() {
           </h1>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
-            This app keeps the flow simple: authenticate, write posts, and manage
-            your workspace with predictable navigation and polished visuals.
+            This app keeps the flow simple: authenticate, write posts, and
+            manage your workspace with predictable navigation and polished
+            visuals.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -184,7 +185,9 @@ export function HomePage() {
               <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
                 01
               </p>
-              <h4 className="text-lg font-semibold text-slate-900">Authenticate</h4>
+              <h4 className="text-lg font-semibold text-slate-900">
+                Authenticate
+              </h4>
               <p className="mt-2 text-sm text-slate-600">
                 Sign in or create an account. Header actions adapt immediately
                 to your session state.
@@ -194,7 +197,9 @@ export function HomePage() {
               <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
                 02
               </p>
-              <h4 className="text-lg font-semibold text-slate-900">Write Posts</h4>
+              <h4 className="text-lg font-semibold text-slate-900">
+                Write Posts
+              </h4>
               <p className="mt-2 text-sm text-slate-600">
                 Open the posts area to create content, browse existing posts,
                 and maintain clean editorial flow.
@@ -204,7 +209,9 @@ export function HomePage() {
               <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
                 03
               </p>
-              <h4 className="text-lg font-semibold text-slate-900">Track Session</h4>
+              <h4 className="text-lg font-semibold text-slate-900">
+                Track Session
+              </h4>
               <p className="mt-2 text-sm text-slate-600">
                 Use the dashboard to verify session details and logout directly
                 when your work is done.

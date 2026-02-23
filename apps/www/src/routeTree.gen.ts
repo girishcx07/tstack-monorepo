@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
+import { Route as DemoBetterAuthRouteImport } from './routes/demo/better-auth'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
 import { Route as ProtectedPostsIndexRouteImport } from './routes/_protected/posts/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -29,6 +31,16 @@ const ProtectedRoute = ProtectedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
+  id: '/demo/tanstack-query',
+  path: '/demo/tanstack-query',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoBetterAuthRoute = DemoBetterAuthRouteImport.update({
+  id: '/demo/better-auth',
+  path: '/demo/better-auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProtectedDashboardRoute = ProtectedDashboardRouteImport.update({
@@ -57,6 +69,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/dashboard': typeof ProtectedDashboardRoute
+  '/demo/better-auth': typeof DemoBetterAuthRoute
+  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/posts/': typeof ProtectedPostsIndexRoute
   '/posts/$postid/': typeof ProtectedPostsPostidIndexRoute
@@ -65,6 +79,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/dashboard': typeof ProtectedDashboardRoute
+  '/demo/better-auth': typeof DemoBetterAuthRoute
+  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/posts': typeof ProtectedPostsIndexRoute
   '/posts/$postid': typeof ProtectedPostsPostidIndexRoute
@@ -75,6 +91,8 @@ export interface FileRoutesById {
   '/_protected': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
   '/_protected/dashboard': typeof ProtectedDashboardRoute
+  '/demo/better-auth': typeof DemoBetterAuthRoute
+  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_protected/posts/': typeof ProtectedPostsIndexRoute
   '/_protected/posts/$postid/': typeof ProtectedPostsPostidIndexRoute
@@ -85,6 +103,8 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/dashboard'
+    | '/demo/better-auth'
+    | '/demo/tanstack-query'
     | '/api/auth/$'
     | '/posts/'
     | '/posts/$postid/'
@@ -93,6 +113,8 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/dashboard'
+    | '/demo/better-auth'
+    | '/demo/tanstack-query'
     | '/api/auth/$'
     | '/posts'
     | '/posts/$postid'
@@ -102,6 +124,8 @@ export interface FileRouteTypes {
     | '/_protected'
     | '/login'
     | '/_protected/dashboard'
+    | '/demo/better-auth'
+    | '/demo/tanstack-query'
     | '/api/auth/$'
     | '/_protected/posts/'
     | '/_protected/posts/$postid/'
@@ -111,6 +135,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ProtectedRoute: typeof ProtectedRouteWithChildren
   LoginRoute: typeof LoginRoute
+  DemoBetterAuthRoute: typeof DemoBetterAuthRoute
+  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -135,6 +161,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/tanstack-query': {
+      id: '/demo/tanstack-query'
+      path: '/demo/tanstack-query'
+      fullPath: '/demo/tanstack-query'
+      preLoaderRoute: typeof DemoTanstackQueryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/better-auth': {
+      id: '/demo/better-auth'
+      path: '/demo/better-auth'
+      fullPath: '/demo/better-auth'
+      preLoaderRoute: typeof DemoBetterAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_protected/dashboard': {
@@ -188,6 +228,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ProtectedRoute: ProtectedRouteWithChildren,
   LoginRoute: LoginRoute,
+  DemoBetterAuthRoute: DemoBetterAuthRoute,
+  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
