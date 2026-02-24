@@ -11,7 +11,7 @@ import {
   Workflow,
 } from 'lucide-react';
 import { Section } from '../components/layout/Section';
-import { authClient } from '#/lib/auth-client';
+import { authClient } from '#/lib/authClient';
 import { getSeoMeta } from '../lib/seo';
 
 const faqSchema = {

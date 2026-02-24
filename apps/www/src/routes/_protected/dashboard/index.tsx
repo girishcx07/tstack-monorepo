@@ -1,4 +1,4 @@
-import { authClient } from '#/lib/auth-client';
+import { authClient } from '#/lib/authClient';
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router';
 import { LogOut, User, ShieldCheck, Zap, Globe } from 'lucide-react';
 import { getSession } from '#/server/functions/auth';

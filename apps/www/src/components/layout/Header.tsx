@@ -2,7 +2,7 @@ import { Button } from '@repo/ui/components/button';
 import { Link, useRouter } from '@tanstack/react-router';
 import { BookText, LogOut, Menu, UserCircle2, X } from 'lucide-react';
 import { useState } from 'react';
-import { authClient } from '#/lib/auth-client';
+import { authClient } from '#/lib/authClient';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,5 +1,5 @@
 import { Navigate, Outlet, createFileRoute } from '@tanstack/react-router';
-import { authClient } from '#/lib/auth-client';
+import { authClient } from '#/lib/authClient';
 import Spinner from '#/components/layout/Spinner';
 
 export const Route = createFileRoute('/_protected/layout')({
