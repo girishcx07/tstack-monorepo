@@ -3,7 +3,7 @@ import { createFileRoute, redirect, useRouter } from '@tanstack/react-router';
 import { LogOut, User, ShieldCheck, Zap, Globe } from 'lucide-react';
 import { getSession } from '#/server/functions/auth';
 
-export const Route = createFileRoute('/dashboard/')({
+export const Route = createFileRoute('/_protected/dashboard/')({
   beforeLoad: async () => {
     const session = await getSession();
     if (!session) {

@@ -1,0 +1,156 @@
+import { ArrowDownIcon, ArrowUpIcon, Search, Trash } from 'lucide-react';
+import { Button } from '@repo/ui/components/button';
+import { Input } from '@repo/ui/components/input';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from '@repo/ui/components/tooltip';
+import { useQuery } from '@tanstack/react-query';
+import {
+  createFileRoute,
+  stripSearchParams,
+  type SearchSchemaInput,
+} from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
+import * as v from 'valibot';
+import type { RouterOutput } from '@repo/api/client';
+import { apiClient } from '#/clients/apiClient';
+import CreatePostButton from './-components/create-post';
+import DeletePostButton from './-components/delete-post';
+import {
+  postsSearchDefaults,
+  postsSearchSchema,
+  type PostSearchSchema,
+} from './-validations/posts-link-options';
+
+export const Route = createFileRoute('/_protected/posts/')({
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(apiClient.posts.all.queryOptions()),
+  component: RouteComponent,
+  validateSearch: (input: SearchSchemaInput) =>
+    v.parse(postsSearchSchema, input),
+  search: {
+    middlewares: [stripSearchParams(postsSearchDefaults)],
+  },
+  errorComponent: ({ error }) => {
+    return (
+      <div className="flex flex-col items-center w-full gap-y-3">
+        <div>{error.message}</div>
+      </div>
+    );
+  },
+});
+
+function PostItem({
+  post,
+  disabled,
+}: Readonly<{
+  post: RouterOutput['posts']['all'][number];
+  disabled: boolean;
+}>) {
+  return (
+    <Link
+      to="/posts/$postid"
+      params={{ postid: post.id }}
+      className="border border-gray-500 bg-elevated p-4 w-full flex items-center justify-between gap-3 rounded-xl hover:brightness-90"
+      disabled={disabled}
+    >
+      <div className="flex flex-col gap-y-1">
+        <div className="text-lg font-bold line-clamp-3 wrap-anywhere">
+          {post.title}
+        </div>
+        <div className="italic text-sm">
+          {new Date(post.createdAt).toLocaleString()}
+        </div>
+      </div>
+
+      <DeletePostButton postId={post.id}>
+        <Trash />
+      </DeletePostButton>
+    </Link>
+  );
+}
+
+function RouteComponent() {
+  const { data: posts, isPending } = useQuery(
+    apiClient.posts.all.queryOptions(),
+  );
+  const navigate = useNavigate({ from: Route.fullPath });
+  const search = Route.useSearch();
+
+  const updateFilters = (name: keyof PostSearchSchema, value: unknown) => {
+    navigate({ search: (prev) => ({ ...prev, [name]: value }) });
+  };
+
+  /**
+   * You could memoize posts, although if you use the react 19 compiler
+   * (which RT-stack will in the future), it won't be necessary.
+   */
+  const lowercaseSearch = search.searchString.toLowerCase();
+  const filteredPost = posts
+    ?.filter((p) => p.title.toLowerCase().includes(lowercaseSearch))
+    ?.sort((a, b) =>
+      search.sortDirection === 'asc'
+        ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+  return (
+    <div className="flex flex-col p-1.5 md:p-4 w-full max-w-6xl mx-auto">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl">Posts</h1>
+        <CreatePostButton />
+      </div>
+      <hr className="mt-4 border-b-2 border-gray-400" />
+
+      <div className="mt-4 flex justify-end items-center relative gap-x-2">
+        <TooltipProvider delay={0}>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant="link"
+                  className="w-12 border border-input hover:brightness-150"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    updateFilters(
+                      'sortDirection',
+                      search.sortDirection === 'asc' ? 'desc' : 'asc',
+                    );
+                  }}
+                >
+                  {search.sortDirection === 'asc' ? (
+                    <ArrowUpIcon />
+                  ) : (
+                    <ArrowDownIcon />
+                  )}
+                </Button>
+              }
+            />
+            <TooltipContent side="top" align="center" sideOffset={4}>
+              <span>Sort by created date ({search.sortDirection})</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <div className="relative sm:max-w-64 w-full">
+          <Input
+            value={search.searchString}
+            onChange={(e) => updateFilters('searchString', e.target.value)}
+            placeholder="Search by title..."
+            className="w-full pr-10 placeholder:italic peer"
+          />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-input peer-focus:text-foreground transition-colors" />
+        </div>
+      </div>
+
+      <div className="flex gap-x-3 gap-y-3 flex-wrap my-4 md:my-6">
+        {filteredPost?.length
+          ? filteredPost.map((p) => (
+              <PostItem key={p.id} post={p} disabled={isPending} />
+            ))
+          : 'There are no posts available.'}
+      </div>
+    </div>
+  );
+}

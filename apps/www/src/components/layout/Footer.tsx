@@ -29,7 +29,10 @@ export function Footer() {
             <Link to="/" className="transition-colors hover:text-slate-900">
               Home
             </Link>
-            <Link to="/posts" className="transition-colors hover:text-slate-900">
+            <Link
+              to="/posts"
+              className="transition-colors hover:text-slate-900"
+            >
               Posts
             </Link>
             <Link
@@ -46,7 +49,10 @@ export function Footer() {
             Account
           </h3>
           <div className="flex flex-col gap-2 text-sm text-slate-700">
-            <Link to="/login" className="transition-colors hover:text-slate-900">
+            <Link
+              to="/login"
+              className="transition-colors hover:text-slate-900"
+            >
               Sign in
             </Link>
             <Link
@@ -71,8 +77,8 @@ export function Footer() {
 
       <div className="border-t border-black/10 px-6 py-4">
         <p className="mx-auto max-w-7xl text-xs text-slate-500">
-          Copyright {currentYear} PostCraft. Built with TanStack Start and Better
-          Auth.
+          Copyright {currentYear} PostCraft. Built with TanStack Start and
+          Better Auth.
         </p>
       </div>
     </footer>
